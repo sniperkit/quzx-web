@@ -272,8 +272,18 @@ export class RssComponent {
 
     switch (data.key) {
       case "j":
+
+        // mark as read
         if (this.items.length > 0)
           this.markAsReadedAndDeleteItem(this.items[0]);
+
+        // fetch new items
+        if (this.items.length == 0) {
+          this.rssService.getRssItems(this.selectedFeed.Id).then(items => {
+            this.items = items;
+          });
+        }
+
         break;
     }
   }
