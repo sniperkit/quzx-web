@@ -25,7 +25,7 @@ import {ActivatedRoute, Router} from "@angular/router";
           <div class="row col-md-12">{{feedType}}</div>                    
                     
           <div *ngFor="let feed of feedsByType(feedType)" class="row col-md-12">
-            <a [routerLink]="['/feeds', feed.Id]">{{feed.Title}}</a>
+            <a [routerLink]="['/feeds', feed.Id]" [ngClass]="{'broken': feed.Broken == 1}">{{feed.Title}}</a>
           </div>
         </div>                       
     </div>
@@ -45,6 +45,8 @@ import {ActivatedRoute, Router} from "@angular/router";
       margin-top: 6px;
       margin-bottom: 6px;
     }
+    
+    a.broken { color: red; }
          
 `],
   providers: [RssService]

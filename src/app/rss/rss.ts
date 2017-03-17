@@ -13,6 +13,7 @@ export class RssFeed {
   ShowContent: number;
   ShowOrder: number;
   Folder: string;
+  Broken: number;
 }
 
 export class RssItem {
