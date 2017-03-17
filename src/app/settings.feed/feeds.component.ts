@@ -17,7 +17,7 @@ import {ActivatedRoute, Router} from "@angular/router";
           <button type="button" class="btn btn-default btn-xs" (click)="subscribe()">
             Subscribe            
           </button>
-          <input type="text" id="feed-search">
+          <input #filterbox type="text" id="feed-search" (keyup)="onFilter(filterbox.value)">
         </div>            
             
         <div *ngFor="let feedType of feedTypes" class="row col-md-12">
@@ -55,6 +55,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class FeedsComponent {
 
   feeds: RssFeed[];
+  feedsToDisplay: RssFeed[];
   feedTypes: number[];
 
   constructor(private rssService: RssService,
@@ -69,15 +70,25 @@ export class FeedsComponent {
       this.feedTypes = _.chain(this.feeds)
                         .map(function(f: RssFeed) { return f.RssType; })
                         .uniq().value();
+      this.feedsToDisplay = this.feeds;
     });
   }
 
   feedsByType(t: number): RssFeed[] {
-    return _.filter(this.feeds, function(f: RssFeed) { return f.RssType == t; });
+    return _.filter(this.feedsToDisplay, function(f: RssFeed) { return f.RssType == t; });
   }
 
   subscribe() {
     this.router.navigate(['feeds/0'])
+  }
+
+  onFilter(s: string) {
+    if (s.length > 0) {
+      this.feedsToDisplay = _.filter(this.feeds, function(f: RssFeed) { return f.Title.indexOf(s) > 0; })
+    } else {
+      this.feedsToDisplay = this.feeds;
+    }
+
   }
 
 }
