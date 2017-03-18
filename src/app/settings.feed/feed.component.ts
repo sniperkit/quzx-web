@@ -119,6 +119,9 @@ export class FeedComponent {
 
       feed.SyncInterval = parseInt(feed.SyncInterval);
       feed.LastSyncTime = 0;
+      feed.LimitFull = 10;
+      feed.LimitHeadersOnly = 30;
+      feed.Broken = 0;
       this.rssService.postFeed(feed);
     }
   }

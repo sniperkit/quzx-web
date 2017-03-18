@@ -13,6 +13,8 @@ export class RssFeed {
   ShowContent: number;
   ShowOrder: number;
   Folder: string;
+  LimitFull: number;
+  LimitHeadersOnly: number;
   Broken: number;
 }
 
