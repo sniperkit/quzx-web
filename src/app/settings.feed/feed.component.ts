@@ -37,7 +37,13 @@ enum Mode {
           </div>
           <div class="form-group">
             <label for="feed-syncinterval">SyncInterval: </label>
-            <input [(ngModel)]="feed.syncInterval" name="SyncInterval" id="feed-syncinterval" class="form-control"  type="text" />
+            <select [(ngModel)]="feed.SyncInterval" name="SyncInterval" id="feed-syncinterval" class="form-control">
+              <option [ngValue]=1800>30 min</option>
+              <option [ngValue]=7200>2 hours</option>
+              <option [ngValue]=21600>6 hours</option>
+              <option [ngValue]=43200>12 hours</option>
+              <option [ngValue]=86400>24 hours</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="feed-alternativename">AlternativeName: </label>
