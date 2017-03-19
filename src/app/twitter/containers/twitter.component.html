@@ -1,0 +1,8 @@
+<div class="twi-section container-fluid">
+  <div *ngFor="let tweet of tweets" class="twi">
+    <div class="twi-text" [innerHTML]="tweet.text | tweettext"></div>
+    <div class="twi-second-line">
+      [{{tweet.user.name}}] ({{tweet.created_at | cleandate }}) (<a href="#" (click)="markAsRead($event, tweet.id_str)">delete</a>)
+    </div>
+  </div>
+</div>

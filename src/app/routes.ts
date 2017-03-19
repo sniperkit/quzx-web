@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
 
 import { StackComponent } from './stack/stack.component'
-import { TwitterComponent } from "./twitter/twitter.component";
+import { TwitterComponent } from "./twitter/containers/twitter.component";
 import { RssComponent } from "./rss/container/rss.component";
 import { HackerNewsComponent } from "./hackernews/hackernews.component"
 import { LoginComponent } from "./login/login.component";

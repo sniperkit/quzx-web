@@ -3,9 +3,9 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise'
 
-import { Tweet } from './tweet'
-import {contentHeaders} from "../common/services/headers";
-import {AppSettings} from "../common/app.settings";
+import { Tweet } from '../models/tweet'
+import {contentHeaders} from "../../common/services/headers";
+import {AppSettings} from "../../common/app.settings";
 
 @Injectable()
 export class TweetService {
