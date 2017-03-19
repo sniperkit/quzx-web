@@ -12,7 +12,7 @@ import { DropdownModule, ModalModule } from 'ng2-bootstrap'
 
 import { AppComponent }  from './app.component';
 import { appRoutes } from './routes'
-import { StackComponent } from "./stack/stack.component";
+import { StackComponent } from "./stack/container/stack.component";
 import { TwitterComponent } from "./twitter/containers/twitter.component";
 import { StringDatePipe, CleanDatePipe } from "./common/pipes/unixtime.pipe"
 import { TweetTextPipe } from "./common/pipes/twittertext.pipe"

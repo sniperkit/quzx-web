@@ -1,0 +1,34 @@
+<div class="stack-section container-fluid">
+
+  <div class="row col-md-12 st-panel">
+    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsRead($event)">
+      Mark all as read
+    </button>
+    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsReadOlderOneDay($event)">
+      Mark as read items older than a day
+    </button>
+  </div>
+
+  <div>
+          <span *ngFor="let tag of stackTags">
+            <a href="/stack" (click)="handleTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
+          </span>
+  </div>
+
+  <div id="stack-table" (window:keydown)="keyEvent($event)">
+    <div *ngFor="let q of questions">
+      <div class="stack-element">
+        <div class="first-line">
+          <a href="{{q.link}}" class="question-header">{{q.title}}</a>
+          <tag-select [tags]="tags" [itemId]="q.id" [source]="source" class="tag-select"></tag-select>
+          <a href="#" class="remove-icon" (click)="markAsRead($event, q)">
+            <span class="glyphicon glyphicon-remove "></span>
+          </a>
+        </div>
+        <div class="second-line">
+          [{{q.tags}}] ({{q.creationdate | stringdate | cleandate }})
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,10 +3,10 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise'
 
-import { StackQuestion } from './stack-question'
-import {StackTag} from "./stack-tag";
-import {contentHeaders} from "../common/services/headers";
-import {AppSettings} from "../common/app.settings";
+import { StackQuestion } from '../models/stack-question'
+import {StackTag} from "../models/stack-tag";
+import {contentHeaders} from "../../common/services/headers";
+import {AppSettings} from "../../common/app.settings";
 
 @Injectable()
 export class StackService {

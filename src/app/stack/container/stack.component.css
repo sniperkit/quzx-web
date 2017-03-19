@@ -1,0 +1,33 @@
+.stack-section {
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.st-panel {
+  margin-bottom: 10px;
+}
+
+a { font-size: 13px; }
+a.question-header { font-size: 14px; }
+
+div#stack-table { margin-top: 20px; }
+.stack-element {
+  margin-bottom: 8px;
+}
+.second-line {
+  color: #777;
+  font-size: 13px;
+}
+.second-line a {
+  color: #777;
+}
+
+.tag-select {
+  margin-left: 10px;
+}
+
+.remove-icon {
+  margin-left: 5px;
+  color: #337ab7;
+}
