@@ -15,35 +15,12 @@
 
     <div class="col-md-10">
 
-      <div class="row col-md-12 rss-panel">
-
-        <div class="btn-group" dropdown>
-          <button type="button" class="btn btn-default btn-xs dropdown-toggle" dropdownToggle>
-            Display
-            <span class="caret"></span>
-          </button>
-          <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
-            <li role="menuitem"><a href="#" (click)="onChangeShowContent($event)">Show content</a></li>
-            <li role="menuitem"><a href="#" (click)="onSortByNewest($event)">Sort by newest</a></li>
-            <li role="menuitem"><a href="#" (click)="onSortByOldest($event)">Sort by oldest</a></li>
-          </ul>
-        </div>
-
-        <div class="btn-group" dropdown>
-          <button type="button" class="btn btn-default btn-xs dropdown-toggle" dropdownToggle>
-            Action
-            <span class="caret"></span>
-          </button>
-          <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
-            <li role="menuitem"><a href="#" (click)="showModal($event)">Edit</a></li>
-            <li role="menuitem"><a href="#" (click)="unsubscribe($event)">Unsubscribe</a></li>
-          </ul>
-        </div>
-
-        <button type="button" class="btn btn-default btn-xs" (click)="readAll($event)">
-          Mark all as read
-        </button>
-      </div>
+      <rss-action-panel (onShowContent)="onChangeShowContent()"
+                        (onSortByNewest)="onSortByNewest()"
+                        (onSortByOldest)="onSortByOldest()"
+                        (onEdit)="showModal()"
+                        (onReadAll)="readAll()"
+                        (onUnsubscribe)="unsubscribe()"></rss-action-panel>
 
       <div id="rss-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
         <div *ngFor="let i of items">

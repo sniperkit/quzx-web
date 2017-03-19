@@ -69,17 +69,15 @@ export class RssComponent {
     return _.filter(this.feeds, function(f: RssFeed) { return f.Folder == folder; });
   }
 
-  showModal(e: MouseEvent): void {
+  showModal(): void {
     this.renameFeedModal.show();
-    e.preventDefault();
   }
 
-  onChangeShowContent(e: MouseEvent): void {
+  onChangeShowContent(): void {
 
     this.showContent = !this.showContent;
     this.selectedFeed.ShowContent = this.showContent ? 1 : 0;
     this.updateAndReloadFeed(this.selectedFeed);
-    e.preventDefault();
   }
 
   updateAndReloadFeed(feed: RssFeed): void {
@@ -95,29 +93,25 @@ export class RssComponent {
     this.rssService.putFeed(feed);
   }
 
-  onSortByNewest(e: MouseEvent): void {
+  onSortByNewest(): void {
 
     this.selectedFeed.ShowOrder = 0;
     this.updateAndReloadFeed(this.selectedFeed);
-    e.preventDefault();
   }
 
-  onSortByOldest(e: MouseEvent): void {
+  onSortByOldest(): void {
 
     this.selectedFeed.ShowOrder = 1;
     this.updateAndReloadFeed(this.selectedFeed);
-    e.preventDefault();
   }
 
-  readAll(e: MouseEvent): void {
+  readAll(): void {
 
     var feed_id = this.selectedFeed.Id;
     this.rssService.markRssFeedAsReaded(feed_id);
     this.items = [];
     this.feeds = _.chain(this.feeds)
                   .filter(function(f: RssFeed) { return f.Id !== feed_id }).value();
-
-    e.preventDefault();
   }
 
   markAsReadedAndDeleteItem(item: RssItem) {
@@ -155,15 +149,13 @@ export class RssComponent {
     e.preventDefault();
   }
 
-  unsubscribe(e: MouseEvent) {
+  unsubscribe() {
 
     var feed_id = this.selectedFeed.Id;
     this.rssService.unsubscribe(feed_id);
     this.items = [];
     this.feeds = _.chain(this.feeds)
       .filter(function(f: RssFeed) { return f.Id !== feed_id }).value();
-
-    e.preventDefault();
   }
 }
 
