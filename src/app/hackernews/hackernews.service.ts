@@ -4,7 +4,7 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import {HackerNews} from './hackernews';
-import {contentHeaders} from "../common/services/headers";
+import {contentHeaders} from "../services/headers";
 import {AppSettings} from "../common/app.settings";
 
 @Injectable()

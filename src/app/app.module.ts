@@ -14,17 +14,17 @@ import { AppComponent }  from './app.component';
 import { appRoutes } from './routes'
 import { StackComponent } from "./stack/stack.component";
 import { TwitterComponent } from "./twitter/twitter.component";
-import { StringDatePipe, CleanDatePipe } from "./common/pipes/unixtime.pipe"
-import { TweetTextPipe } from "./common/pipes/twittertext.pipe"
+import { StringDatePipe, CleanDatePipe } from "./pipes/unixtime.pipe"
+import { TweetTextPipe } from "./pipes/twittertext.pipe"
 import { RssComponent } from "./rss/rss.component";
 import { HackerNewsComponent } from "./hackernews/hackernews.component";
 import { FeedsComponent } from './settings.feed/feeds.component';
 import { FeedComponent } from "./settings.feed/feed.component";
 import { LoginComponent } from "./login/login.component";
-import { TagSelectComponent } from './common/components/tag-select.component';
-import { RenameFeedModalWindowComponent } from './common/components/renamefeed-modalwindow.component';
+import { TagSelectComponent } from './components/tag-select.component';
+import { RenameFeedModalWindowComponent } from './components/renamefeed-modalwindow.component';
 import { TagsComponent } from './tags/tag.component';
-import {AuthGuard} from "./common/services/auth.guard";
+import {AuthGuard} from "./services/auth.guard";
 import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
 import { RssActionPanelComponent } from './rss/rss-action-panel/rss-action-panel.component';
 import { RssFeedListComponent } from './rss/rss-feed-list/rss-feed-list.component';

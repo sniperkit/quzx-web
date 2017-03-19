@@ -5,7 +5,7 @@ import { TwitterComponent } from "./twitter/twitter.component";
 import { RssComponent } from "./rss/rss.component";
 import { HackerNewsComponent } from "./hackernews/hackernews.component"
 import { LoginComponent } from "./login/login.component";
-import { AuthGuard } from "./common/services/auth.guard";
+import { AuthGuard } from "./services/auth.guard";
 import { FeedsComponent } from "./settings.feed/feeds.component";
 import { FeedComponent } from "./settings.feed/feed.component";
 import { TagsComponent } from "./tags/tag.component";

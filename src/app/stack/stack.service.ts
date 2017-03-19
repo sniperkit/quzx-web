@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise'
 
 import { StackQuestion } from './stack-question'
 import {StackTag} from "./stack-tag";
-import {contentHeaders} from "../common/services/headers";
+import {contentHeaders} from "../services/headers";
 import {AppSettings} from "../common/app.settings";
 
 @Injectable()
