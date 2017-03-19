@@ -46,7 +46,7 @@ export class StackComponent {
     event.preventDefault();
   }
 
-  markAllAsRead(event: MouseEvent) {
+  markAllAsRead() {
 
     var tag = this.selectedTag;
     this.stackService.setQuestionsAsReadByClassification(tag).then(() => {
@@ -54,11 +54,9 @@ export class StackComponent {
         this.store.dispatch({type: GET_TAGS, payload: tags});
       });
     });
-
-    event.preventDefault();
   }
 
-  markAllAsReadOlderOneDay(event: MouseEvent) {
+  markAllAsReadOlderOneDay() {
 
     let moment = Math.round((new Date().getTime()) / 1000) - 24 * 60 * 60;
     var tag = this.selectedTag;
@@ -67,8 +65,6 @@ export class StackComponent {
         this.store.dispatch({type: GET_TAGS, payload: tags});
       });
     });
-
-    event.preventDefault();
   }
 
   getQuestions(): void {

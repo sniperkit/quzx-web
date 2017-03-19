@@ -1,17 +1,13 @@
 <div class="stack-section container-fluid">
 
-  <div class="row col-md-12 st-panel">
-    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsRead($event)">
-      Mark all as read
-    </button>
-    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsReadOlderOneDay($event)">
-      Mark as read items older than a day
-    </button>
-  </div>
+  <stack-action-panel
+    (onMarkAllAsReaded)="markAllAsRead()"
+    (onMarkAsReadedOlderOneDay)="markAllAsReadOlderOneDay()"></stack-action-panel>
+
   <div>
-          <span *ngFor="let tag of state.tags">
-            <a href="/stack" (click)="handleTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
-          </span>
+    <span *ngFor="let tag of state.tags">
+      <a href="/stack" (click)="handleTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
+    </span>
   </div>
 
   <div id="stack-table" (window:keydown)="keyEvent($event)">
