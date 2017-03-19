@@ -2,6 +2,9 @@ import { Component } from '@angular/core'
 import {StackService} from "../services/stack.service";
 import {StackTag} from "../models/stack-tag";
 
+import { Store } from '@ngrx/store';
+import { StackState, GET_TAGS } from '../actions/stack.actions';
+
 import * as _ from "underscore";
 
 import {Tag} from "../../tags/tags";
@@ -18,17 +21,20 @@ import {StackQuestion} from "../models/stack-question";
 
 export class StackComponent {
 
+  state: StackState;
   selectedTag: string = "";
-  stackTags: StackTag[] = [];
-
   questions: StackQuestion[] = [];
   tags: Tag[] = [];
   source: string = "stack";
 
-  constructor(private stackService: StackService, private tagsService: TagsService) {
+  constructor(private store: Store<StackState>,
+              private stackService: StackService,
+              private tagsService: TagsService) {
+
+    store.select('stackReducer').subscribe((data: StackState) => this.state = data );
 
     this.stackService.getStackTags().then(tags => {
-      this.stackTags = tags;
+      this.store.dispatch({type: GET_TAGS, payload: tags});
     });
 
     this.getTags();
@@ -45,7 +51,7 @@ export class StackComponent {
     var tag = this.selectedTag;
     this.stackService.setQuestionsAsReadByClassification(tag).then(() => {
       this.stackService.getStackTags().then(tags => {
-        this.stackTags = tags;
+        this.store.dispatch({type: GET_TAGS, payload: tags});
       });
     });
 
@@ -58,8 +64,7 @@ export class StackComponent {
     var tag = this.selectedTag;
     this.stackService.setQuestionsAsReadByClassificationFromTime(tag, moment).then(() => {
       this.stackService.getStackTags().then(tags => {
-        this.stackTags = tags;
-        console.log(tags);
+        this.store.dispatch({type: GET_TAGS, payload: tags});
       });
     });
 
@@ -84,9 +89,11 @@ export class StackComponent {
 
     this.stackService.setQuestionAsRead(question.questionid);
     this.questions = _.filter(this.questions, function(q: StackQuestion) { return q.questionid != question.questionid });
-    this.stackTags = _.chain(this.stackTags)
-                      .each((t: StackTag) => { if (t.Classification == this.selectedTag) t.Unreaded--; })
-                      .filter(function(t: StackTag) { return t.Unreaded > 0 }).value();
+    this.store.dispatch({type: GET_TAGS,
+      payload: _.chain(this.state.tags)
+                .each((t: StackTag) => { if (t.Classification == this.selectedTag) t.Unreaded--; })
+                .filter(function(t: StackTag) { return t.Unreaded > 0 }).value()});
+
   }
 
   markAsRead(e: MouseEvent, question: StackQuestion) {

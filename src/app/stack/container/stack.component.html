@@ -8,9 +8,8 @@
       Mark as read items older than a day
     </button>
   </div>
-
   <div>
-          <span *ngFor="let tag of stackTags">
+          <span *ngFor="let tag of state.tags">
             <a href="/stack" (click)="handleTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
           </span>
   </div>

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { feedsReducer } from './rss/actions/rss';
+import {stackReducer} from "./stack/actions/stack.actions";
 
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
 import { DropdownModule, ModalModule } from 'ng2-bootstrap'
@@ -66,7 +67,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     DropdownModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore({ feedsReducer })
+    StoreModule.provideStore({ feedsReducer, stackReducer })
   ],
   providers: [AuthGuard, AuthHttp, {
     provide: AuthHttp,
