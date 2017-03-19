@@ -2,13 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core'
 import {Store } from '@ngrx/store';
 import { AppState, GET_FEED_ITEMS, GET_FEEDS, CLEAR_FEED_ITEMS, REMOVE_FEED, SET_SHOW_CONTENT, GET_RSS_TAGS } from '../actions/rss'
 
-import { RssFeed } from './rss';
-import { RssService } from './rss.service';
+import { RssFeed } from '../models/rss';
+import { RssService } from '../services/rss.service';
 
 import {ActivatedRoute} from "@angular/router";
-import {TagsService} from "../tags/tags.service";
-import {RenameFeedModalWindowComponent} from "../components/renamefeed-modalwindow.component";
-import {RssFeedTableComponent} from "./rss-feed-table/rss-feed-table.component";
+import {TagsService} from "../../tags/tags.service";
+import {RenameFeedModalWindowComponent} from "../../common/components/renamefeed-modalwindow.component";
+import {RssFeedTableComponent} from "../components/rss-feed-table/rss-feed-table.component";
 
 @Component({
   moduleId: module.id,

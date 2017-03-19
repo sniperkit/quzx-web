@@ -5,7 +5,7 @@ import {HttpModule, Http, RequestOptions} from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
-import { feedsReducer } from './actions/rss';
+import { feedsReducer } from './rss/actions/rss';
 
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
 import { DropdownModule, ModalModule } from 'ng2-bootstrap'
@@ -14,21 +14,21 @@ import { AppComponent }  from './app.component';
 import { appRoutes } from './routes'
 import { StackComponent } from "./stack/stack.component";
 import { TwitterComponent } from "./twitter/twitter.component";
-import { StringDatePipe, CleanDatePipe } from "./pipes/unixtime.pipe"
-import { TweetTextPipe } from "./pipes/twittertext.pipe"
-import { RssComponent } from "./rss/rss.component";
+import { StringDatePipe, CleanDatePipe } from "./common/pipes/unixtime.pipe"
+import { TweetTextPipe } from "./common/pipes/twittertext.pipe"
+import { RssComponent } from "./rss/container/rss.component";
 import { HackerNewsComponent } from "./hackernews/hackernews.component";
 import { FeedsComponent } from './settings.feed/feeds.component';
 import { FeedComponent } from "./settings.feed/feed.component";
 import { LoginComponent } from "./login/login.component";
-import { TagSelectComponent } from './components/tag-select.component';
-import { RenameFeedModalWindowComponent } from './components/renamefeed-modalwindow.component';
+import { TagSelectComponent } from './common/components/tag-select.component';
+import { RenameFeedModalWindowComponent } from './common/components/renamefeed-modalwindow.component';
 import { TagsComponent } from './tags/tag.component';
-import {AuthGuard} from "./services/auth.guard";
+import {AuthGuard} from "./common/services/auth.guard";
 import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
-import { RssActionPanelComponent } from './rss/rss-action-panel/rss-action-panel.component';
-import { RssFeedListComponent } from './rss/rss-feed-list/rss-feed-list.component';
-import { RssFeedTableComponent } from './rss/rss-feed-table/rss-feed-table.component';
+import { RssActionPanelComponent } from './rss/components/rss-action-panel/rss-action-panel.component';
+import { RssFeedListComponent } from './rss/components/rss-feed-list/rss-feed-list.component';
+import { RssFeedTableComponent } from './rss/components/rss-feed-table/rss-feed-table.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({

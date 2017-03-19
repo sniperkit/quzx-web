@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
-import { RssFeed, RssItem } from '../rss/rss';
-import { RssService } from '../rss/rss.service';
+import { RssFeed, RssItem } from '../rss/models/rss';
+import { RssService } from '../rss/services/rss.service';
 
 import * as _ from 'underscore';
 import {ActivatedRoute, Router} from "@angular/router";

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {RssItem, RssFeed} from "../rss";
-import {RssService} from "../rss.service";
+import {RssItem, RssFeed} from "../../models/rss";
+import {RssService} from "../../services/rss.service";
 
 import {Store } from '@ngrx/store';
 import { AppState, GET_FEEDS, GET_FEED_ITEMS } from '../../actions/rss'
@@ -9,8 +9,8 @@ import * as _ from 'underscore';
 
 @Component({
   selector: 'rss-feed-table',
-  templateUrl: './rss-feed-table.component.html',
-  styleUrls: ['./rss-feed-table.component.css']
+  templateUrl: 'rss-feed-table.component.html',
+  styleUrls: ['rss-feed-table.component.css']
 })
 export class RssFeedTableComponent implements OnInit {
 

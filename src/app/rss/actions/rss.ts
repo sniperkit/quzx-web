@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store'
-import {RssFeed, RssItem} from "../rss/rss";
+import {RssFeed, RssItem} from "../models/rss";
 
 import * as _ from 'underscore';
-import {Tag} from "../tags/tags";
+import {Tag} from "../../tags/tags";
 
 export interface AppState {
   feeds: RssFeed[];

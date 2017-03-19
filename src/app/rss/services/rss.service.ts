@@ -3,9 +3,9 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {RssItem, RssFeed} from './rss';
-import {contentHeaders} from "../services/headers";
-import {AppSettings} from "../common/app.settings";
+import {RssItem, RssFeed} from '../models/rss';
+import {contentHeaders} from "../../common/services/headers";
+import {AppSettings} from "../../common/app.settings";
 
 @Injectable()
 export class RssService {

@@ -11,8 +11,8 @@ enum EventType {
 
 @Component({
   selector: 'rss-action-panel',
-  templateUrl: './rss-action-panel.component.html',
-  styleUrls: ['./rss-action-panel.component.css']
+  templateUrl: 'rss-action-panel.component.html',
+  styleUrls: ['rss-action-panel.component.css']
 })
 
 export class RssActionPanelComponent implements OnInit {

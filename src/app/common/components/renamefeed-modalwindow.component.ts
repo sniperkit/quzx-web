@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
 import {ModalDirective} from "ng2-bootstrap";
-import {RssFeed} from "../../rss/rss";
+import {RssFeed} from "../../rss/models/rss";
 
 @Component({
   moduleId: module.id,
