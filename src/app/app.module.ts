@@ -28,6 +28,7 @@ import {AuthGuard} from "./common/services/auth.guard";
 import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
 import { RssActionPanelComponent } from './rss/rss-action-panel/rss-action-panel.component';
 import { RssFeedListComponent } from './rss/rss-feed-list/rss-feed-list.component';
+import { RssFeedTableComponent } from './rss/rss-feed-table/rss-feed-table.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -55,7 +56,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     TweetTextPipe,
     NavigationTabsComponent,
     RssActionPanelComponent,
-    RssFeedListComponent
+    RssFeedListComponent,
+    RssFeedTableComponent
   ],
   imports: [
     BrowserModule,

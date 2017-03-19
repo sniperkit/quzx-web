@@ -13,22 +13,8 @@
                         (onReadAll)="readAll()"
                         (onUnsubscribe)="unsubscribe()"></rss-action-panel>
 
-      <div id="rss-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
-        <div *ngFor="let i of items">
-          <div class="rss-element" [ngClass]="{ 'rss-element-dotted' : showContent}">
-            <div class="first-line">
-              <a href="{{i.Link}}" [ngClass]="{ 'first-line-big' : showContent}">{{i.Title}}</a>
+      <rss-feed-table #feedtable></rss-feed-table>
 
-              <tag-select [tags]="tags" [itemId]="i.Id" [source]="source" class="tag-select pull-right"></tag-select>
-
-            </div>
-            <div class="second-line">
-              ({{i.Date | stringdate | cleandate }}) (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
-            </div>
-            <div *ngIf="showContent" class="content" [innerHTML]="i.Content"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 

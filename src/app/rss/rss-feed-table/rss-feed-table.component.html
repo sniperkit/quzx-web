@@ -1,0 +1,17 @@
+<div id="rss-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
+
+  <div *ngFor="let i of state.rssItems">
+    <div class="rss-element" [ngClass]="{ 'rss-element-dotted' : state.showContent}">
+      <div class="first-line">
+        <a href="{{i.Link}}" [ngClass]="{ 'first-line-big' : state.showContent}">{{i.Title}}</a>
+
+        <tag-select [tags]="tags" [itemId]="i.Id" [source]="source" class="tag-select pull-right"></tag-select>
+
+      </div>
+      <div class="second-line">
+        ({{i.Date | stringdate | cleandate }}) (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
+      </div>
+      <div *ngIf="state.showContent" class="content" [innerHTML]="i.Content"></div>
+    </div>
+  </div>
+</div>

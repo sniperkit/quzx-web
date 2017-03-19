@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {Store, provideStore } from '@ngrx/store';
-import { AppState, INCREMENT, DECREMENT, GET_FEEDS } from '../actions/rss'
+import { AppState, GET_FEED_ITEMS, GET_FEEDS, CLEAR_FEED_ITEMS, REMOVE_FEED, SET_SHOW_CONTENT } from '../actions/rss'
 
 import { RssFeed, RssItem } from './rss';
 import { RssService } from './rss.service';
@@ -12,6 +12,7 @@ import {Tag} from "../tags/tags";
 import {TagsService} from "../tags/tags.service";
 import {RenameFeedModalWindowComponent} from "../common/components/renamefeed-modalwindow.component";
 import {Observable} from "rxjs";
+import {RssFeedTableComponent} from "./rss-feed-table/rss-feed-table.component";
 
 
 @Component({
@@ -25,13 +26,11 @@ import {Observable} from "rxjs";
 export class RssComponent {
 
   @ViewChild('renamefeedmodal') renameFeedModal: RenameFeedModalWindowComponent;
+  @ViewChild('feedtable') feedTable: RssFeedTableComponent;
 
   state: AppState;
-
   feedType: number = 0;
-  showContent: boolean = true;
   feeds: RssFeed[];
-  items: RssItem[] = [];
   selectedFeed: RssFeed;
   folders: string[] = [];
   tags: Tag[] = [];
@@ -53,16 +52,6 @@ export class RssComponent {
     });
   }
 
-  addDemoData() {
-    console.log('hello');
-    console.log(this.state);
-    this.store.dispatch({type: INCREMENT})
-  }
-
-  removeDemoData() {
-    this.store.dispatch({type: DECREMENT})
-  }
-
   ngOnInit(): void {
     this.rssService.getUnreadFeeds(this.feedType).then(feeds => {
       this.feeds = feeds;
@@ -76,11 +65,7 @@ export class RssComponent {
   onFeedSelected(feed: RssFeed) {
 
     this.selectedFeed = feed;
-    this.showContent = this.selectedFeed.ShowContent == 1;
-
-    this.rssService.getRssItems(this.selectedFeed.Id).then(items => {
-      this.items = items;
-    });
+    this.feedTable.onFeedSelected(feed);
   }
 
   showModal(): void {
@@ -89,15 +74,16 @@ export class RssComponent {
 
   onChangeShowContent(): void {
 
-    this.showContent = !this.showContent;
-    this.selectedFeed.ShowContent = this.showContent ? 1 : 0;
+    let showContent = !this.state.showContent;
+    this.store.dispatch({type: SET_SHOW_CONTENT, payload: showContent});
+    this.selectedFeed.ShowContent = showContent ? 1 : 0;
     this.updateAndReloadFeed(this.selectedFeed);
   }
 
   updateAndReloadFeed(feed: RssFeed): void {
     this.rssService.putFeed(feed).then(r => {
       this.rssService.getRssItems(feed.Id).then(items => {
-        this.items = items;
+        this.store.dispatch({type: GET_FEED_ITEMS, payload: items});
       });
     });
   }
@@ -121,55 +107,18 @@ export class RssComponent {
 
   readAll(): void {
 
-    var feed_id = this.selectedFeed.Id;
+    let feed_id = this.selectedFeed.Id;
     this.rssService.markRssFeedAsReaded(feed_id);
-    this.items = [];
-    this.feeds = _.chain(this.feeds)
-                  .filter(function(f: RssFeed) { return f.Id !== feed_id }).value();
-  }
-
-  markAsReadedAndDeleteItem(item: RssItem) {
-
-    this.rssService.markRssItemAsReaded(item.Id);
-    this.items = _.filter(this.items, function(q: RssItem) { return q.Id != item.Id });
-    this.feeds = _.chain(this.feeds)
-      .each(function(r: RssFeed) { if (r.Id == item.FeedId) r.Unreaded--; })
-      .filter(function(r: RssFeed) { return r.Unreaded > 0 }).value();
-  }
-
-  keyEvent(data: any):void {
-
-    switch (data.key) {
-      case "j":
-
-        // mark as read
-        if (this.items.length > 0)
-          this.markAsReadedAndDeleteItem(this.items[0]);
-
-        // fetch new items
-        if (this.items.length == 0) {
-          this.rssService.getRssItems(this.selectedFeed.Id).then(items => {
-            this.items = items;
-          });
-        }
-
-        break;
-    }
-  }
-
-  markAsRead(e: MouseEvent, item: RssItem) {
-
-    this.markAsReadedAndDeleteItem(item);
-    e.preventDefault();
+    this.store.dispatch({type: CLEAR_FEED_ITEMS});
+    this.store.dispatch({type: REMOVE_FEED, payload: feed_id});
   }
 
   unsubscribe() {
 
-    var feed_id = this.selectedFeed.Id;
+    let feed_id = this.selectedFeed.Id;
     this.rssService.unsubscribe(feed_id);
-    this.items = [];
-    this.feeds = _.chain(this.feeds)
-      .filter(function(f: RssFeed) { return f.Id !== feed_id }).value();
+    this.store.dispatch({type: CLEAR_FEED_ITEMS});
+    this.store.dispatch({type: REMOVE_FEED, payload: feed_id});
   }
 }
 
