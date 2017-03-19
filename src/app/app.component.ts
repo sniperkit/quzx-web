@@ -10,13 +10,8 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
 </div>
 `,
-  styles: [`
-    #application { margin-left: 12px;
-                   margin-right: 12px;
-                   margin-top:  5px; }                                              
-`]
+  styleUrls: ['app.component.css']
 })
 
 export class AppComponent  {
-
 }
