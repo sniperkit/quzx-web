@@ -33,71 +33,34 @@ export function feedsReducer(state: AppState = initialState, action: Action): Ap
 
     case GET_FEEDS: {
 
-      return {
-        feeds: action.payload,
-        folders: _.chain(action.payload)
-                  .map(function(f: RssFeed) { return f.Folder; })
-                  .uniq().value(),
-        rssItems: state.rssItems,
-        rssTags: state.rssTags,
-        showContent: state.showContent
-      }
+      return Object.assign({}, state,
+
+        { feeds:   action.payload,
+          folders: _.chain(action.payload)
+                    .map(function(f: RssFeed) { return f.Folder; })
+                    .uniq().value()});
     }
 
     case GET_FEED_ITEMS: {
-
-      return {
-        feeds: state.feeds,
-        folders: state.folders,
-        rssItems: action.payload,
-        rssTags: state.rssTags,
-        showContent: state.showContent
-      }
+      return Object.assign({}, state, {rssItems: action.payload});
     }
 
     case CLEAR_FEED_ITEMS: {
-
-      return {
-        feeds: state.feeds,
-        folders: state.folders,
-        rssItems: [],
-        rssTags: state.rssTags,
-        showContent: state.showContent
-      }
+      return Object.assign({}, state, {rssItems: []});
     }
 
     case REMOVE_FEED: {
-
-      return {
-        feeds: _.chain(state.feeds)
-                .filter(function(f: RssFeed) { return f.Id !== action.payload }).value(),
-        folders: state.folders,
-        rssItems: state.rssItems,
-        rssTags: state.rssTags,
-        showContent: state.showContent
-      }
+      return Object.assign({}, state,
+        {feeds: _.chain(state.feeds)
+          .filter(function(f: RssFeed) { return f.Id !== action.payload }).value()});
     }
 
     case SET_SHOW_CONTENT: {
-
-      return {
-        feeds: state.feeds,
-        folders: state.folders,
-        rssItems: state.rssItems,
-        rssTags: state.rssTags,
-        showContent: action.payload
-      }
+      return Object.assign({}, state, {showContent: action.payload});
     }
 
     case GET_RSS_TAGS: {
-
-      return {
-        feeds: state.feeds,
-        folders: state.folders,
-        rssItems: state.rssItems,
-        rssTags: action.payload,
-        showContent: state.showContent
-      }
+      return Object.assign({}, state, {rssTags: action.payload});
     }
 
     default:

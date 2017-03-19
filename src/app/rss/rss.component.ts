@@ -6,11 +6,9 @@ import { RssFeed } from './rss';
 import { RssService } from './rss.service';
 
 import {ActivatedRoute} from "@angular/router";
-import {Tag} from "../tags/tags";
 import {TagsService} from "../tags/tags.service";
 import {RenameFeedModalWindowComponent} from "../common/components/renamefeed-modalwindow.component";
 import {RssFeedTableComponent} from "./rss-feed-table/rss-feed-table.component";
-
 
 @Component({
   moduleId: module.id,
