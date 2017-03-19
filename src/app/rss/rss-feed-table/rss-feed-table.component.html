@@ -5,7 +5,7 @@
       <div class="first-line">
         <a href="{{i.Link}}" [ngClass]="{ 'first-line-big' : state.showContent}">{{i.Title}}</a>
 
-        <tag-select [tags]="tags" [itemId]="i.Id" [source]="source" class="tag-select pull-right"></tag-select>
+        <tag-select [tags]="state.rssTags" [itemId]="i.Id" [source]="source" class="tag-select pull-right"></tag-select>
 
       </div>
       <div class="second-line">

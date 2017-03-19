@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
 import {Store } from '@ngrx/store';
-import { AppState, GET_FEED_ITEMS, GET_FEEDS, CLEAR_FEED_ITEMS, REMOVE_FEED, SET_SHOW_CONTENT } from '../actions/rss'
+import { AppState, GET_FEED_ITEMS, GET_FEEDS, CLEAR_FEED_ITEMS, REMOVE_FEED, SET_SHOW_CONTENT, GET_RSS_TAGS } from '../actions/rss'
 
 import { RssFeed } from './rss';
 import { RssService } from './rss.service';
@@ -28,7 +28,6 @@ export class RssComponent {
   state: AppState;
   feedType: number = 0;
   selectedFeed: RssFeed;
-  tags: Tag[] = [];
 
   constructor(private store: Store<AppState>,
               private rssService: RssService,
@@ -42,7 +41,7 @@ export class RssComponent {
     });
 
     this.tagsService.getTags().then(tags => {
-      this.tags = tags;
+      this.store.dispatch({type: GET_RSS_TAGS, payload: tags});
     });
   }
 
