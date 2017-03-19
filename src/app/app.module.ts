@@ -22,6 +22,7 @@ import { TagSelectComponent } from './common/components/tag-select.component';
 import { RenameFeedModalWindowComponent } from './common/components/renamefeed-modalwindow.component';
 import { TagsComponent } from './tags/tag.component';
 import {AuthGuard} from "./common/services/auth.guard";
+import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -46,7 +47,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     TagsComponent,
     StringDatePipe,
     CleanDatePipe,
-    TweetTextPipe
+    TweetTextPipe,
+    NavigationTabsComponent
   ],
   imports: [
     BrowserModule,
