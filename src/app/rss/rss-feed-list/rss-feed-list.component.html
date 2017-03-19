@@ -1,0 +1,10 @@
+<div class="col-md-2 feed-list">
+  <div *ngFor="let folder of this.state.folders">
+    <div class="feed-folder">{{folder}}</div>
+
+    <div *ngFor="let feed of feedsByFolder(folder)">
+      <a href="#" (click)="onSelectFeed($event, feed)">{{feed.AlternativeName}} ({{feed.Unreaded}})</a>
+    </div>
+  </div>
+</div>
+

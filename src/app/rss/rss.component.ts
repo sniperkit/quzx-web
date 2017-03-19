@@ -1,4 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
+import {Store, provideStore } from '@ngrx/store';
+import { AppState, INCREMENT, DECREMENT, GET_FEEDS } from '../actions/rss'
 
 import { RssFeed, RssItem } from './rss';
 import { RssService } from './rss.service';
@@ -9,6 +11,8 @@ import {ModalDirective} from "ng2-bootstrap";
 import {Tag} from "../tags/tags";
 import {TagsService} from "../tags/tags.service";
 import {RenameFeedModalWindowComponent} from "../common/components/renamefeed-modalwindow.component";
+import {Observable} from "rxjs";
+
 
 @Component({
   moduleId: module.id,
@@ -22,6 +26,8 @@ export class RssComponent {
 
   @ViewChild('renamefeedmodal') renameFeedModal: RenameFeedModalWindowComponent;
 
+  state: AppState;
+
   feedType: number = 0;
   showContent: boolean = true;
   feeds: RssFeed[];
@@ -31,9 +37,12 @@ export class RssComponent {
   tags: Tag[] = [];
   source: string = "rss";
 
-  constructor(private rssService: RssService,
+  constructor(private store: Store<AppState>,
+              private rssService: RssService,
               private tagsService: TagsService,
               private route: ActivatedRoute) {
+
+    store.select('feedsReducer').subscribe((data: AppState) => this.state = data );
 
     route.data.subscribe((d: any) => {
       this.feedType = d.section;
@@ -44,16 +53,27 @@ export class RssComponent {
     });
   }
 
+  addDemoData() {
+    console.log('hello');
+    console.log(this.state);
+    this.store.dispatch({type: INCREMENT})
+  }
+
+  removeDemoData() {
+    this.store.dispatch({type: DECREMENT})
+  }
+
   ngOnInit(): void {
     this.rssService.getUnreadFeeds(this.feedType).then(feeds => {
       this.feeds = feeds;
+      this.store.dispatch({type: GET_FEEDS, payload: feeds});
       this.folders = _.chain(this.feeds)
                       .map(function(f: RssFeed) { return f.Folder; })
                       .uniq().value();
     });
   }
 
-  onFeedSelected(e: MouseEvent, feed: RssFeed) {
+  onFeedSelected(feed: RssFeed) {
 
     this.selectedFeed = feed;
     this.showContent = this.selectedFeed.ShowContent == 1;
@@ -61,12 +81,6 @@ export class RssComponent {
     this.rssService.getRssItems(this.selectedFeed.Id).then(items => {
       this.items = items;
     });
-
-    e.preventDefault();
-  }
-
-  feedsByFolder(folder: string): RssFeed[] {
-    return _.filter(this.feeds, function(f: RssFeed) { return f.Folder == folder; });
   }
 
   showModal(): void {

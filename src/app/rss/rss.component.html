@@ -2,16 +2,7 @@
 
   <div class="row">
 
-    <!-- list of feeds -->
-    <div class="col-md-2 feed-list">
-      <div *ngFor="let folder of folders">
-        <div class="feed-folder">{{folder}}</div>
-
-        <div *ngFor="let feed of feedsByFolder(folder)">
-          <a href="#" (click)="onFeedSelected($event, feed)">{{feed.AlternativeName}} ({{feed.Unreaded}})</a>
-        </div>
-      </div>
-    </div>
+    <rss-feed-list (onFeedSelected)="onFeedSelected($event)"></rss-feed-list>
 
     <div class="col-md-10">
 

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import {HttpModule, Http, RequestOptions} from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { StoreModule } from '@ngrx/store';
+import { feedsReducer } from './actions/rss';
+
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
 import { DropdownModule, ModalModule } from 'ng2-bootstrap'
 
@@ -24,6 +27,7 @@ import { TagsComponent } from './tags/tag.component';
 import {AuthGuard} from "./common/services/auth.guard";
 import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
 import { RssActionPanelComponent } from './rss/rss-action-panel/rss-action-panel.component';
+import { RssFeedListComponent } from './rss/rss-feed-list/rss-feed-list.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -50,7 +54,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CleanDatePipe,
     TweetTextPipe,
     NavigationTabsComponent,
-    RssActionPanelComponent
+    RssActionPanelComponent,
+    RssFeedListComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     DropdownModule.forRoot(),
     ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    StoreModule.provideStore({ feedsReducer })
   ],
   providers: [AuthGuard, AuthHttp, {
     provide: AuthHttp,
