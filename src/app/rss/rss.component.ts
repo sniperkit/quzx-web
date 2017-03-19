@@ -1,17 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
-import {Store, provideStore } from '@ngrx/store';
+import {Store } from '@ngrx/store';
 import { AppState, GET_FEED_ITEMS, GET_FEEDS, CLEAR_FEED_ITEMS, REMOVE_FEED, SET_SHOW_CONTENT } from '../actions/rss'
 
-import { RssFeed, RssItem } from './rss';
+import { RssFeed } from './rss';
 import { RssService } from './rss.service';
 
-import * as _ from 'underscore';
 import {ActivatedRoute} from "@angular/router";
-import {ModalDirective} from "ng2-bootstrap";
 import {Tag} from "../tags/tags";
 import {TagsService} from "../tags/tags.service";
 import {RenameFeedModalWindowComponent} from "../common/components/renamefeed-modalwindow.component";
-import {Observable} from "rxjs";
 import {RssFeedTableComponent} from "./rss-feed-table/rss-feed-table.component";
 
 
@@ -30,11 +27,8 @@ export class RssComponent {
 
   state: AppState;
   feedType: number = 0;
-  feeds: RssFeed[];
   selectedFeed: RssFeed;
-  folders: string[] = [];
   tags: Tag[] = [];
-  source: string = "rss";
 
   constructor(private store: Store<AppState>,
               private rssService: RssService,
@@ -54,11 +48,7 @@ export class RssComponent {
 
   ngOnInit(): void {
     this.rssService.getUnreadFeeds(this.feedType).then(feeds => {
-      this.feeds = feeds;
       this.store.dispatch({type: GET_FEEDS, payload: feeds});
-      this.folders = _.chain(this.feeds)
-                      .map(function(f: RssFeed) { return f.Folder; })
-                      .uniq().value();
     });
   }
 
