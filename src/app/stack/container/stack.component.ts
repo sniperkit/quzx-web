@@ -1,15 +1,11 @@
-import { Component } from '@angular/core'
+import {Component, ViewChild} from '@angular/core'
 import {StackService} from "../services/stack.service";
-import {StackTag} from "../models/stack-tag";
 
 import { Store } from '@ngrx/store';
-import { StackState, GET_TAGS } from '../actions/stack.actions';
+import { StackState, GET_TAGS, GET_GENERAL_TAGS } from '../actions/stack.actions';
 
-import * as _ from "underscore";
-
-import {Tag} from "../../tags/tags";
 import {TagsService} from "../../tags/tags.service";
-import {StackQuestion} from "../models/stack-question";
+import {StackQuestionTableComponent} from "../components/stack-question-table/stack-question-table.component";
 
 @Component({
   moduleId: module.id,
@@ -21,11 +17,10 @@ import {StackQuestion} from "../models/stack-question";
 
 export class StackComponent {
 
+  @ViewChild('questiontable') questionTable: StackQuestionTableComponent;
+
   state: StackState;
   selectedTag: string = "";
-  questions: StackQuestion[] = [];
-  tags: Tag[] = [];
-  source: string = "stack";
 
   constructor(private store: Store<StackState>,
               private stackService: StackService,
@@ -40,9 +35,10 @@ export class StackComponent {
     this.getTags();
   }
 
-  handleTagSelect(tag: string) {
-    this.selectedTag = tag;
-    this.getQuestions();
+  handleTagSelect(classification: string) {
+    this.selectedTag = classification;
+    this.questionTable.onTagSelect(classification)
+
   }
 
   markAllAsRead() {
@@ -66,44 +62,9 @@ export class StackComponent {
     });
   }
 
-  getQuestions(): void {
-    if (this.selectedTag == "") return;
-    this.stackService .getQuestions(this.selectedTag).then(questions => {
-      this.questions = questions;
-    });
-  }
-
   getTags(): void {
-
     this.tagsService.getTags().then(tags => {
-      this.tags = tags;
+      this.store.dispatch({type: GET_GENERAL_TAGS, payload: tags});
     });
-  }
-
-  markQuestionAsRead(question: StackQuestion) {
-
-    this.stackService.setQuestionAsRead(question.questionid);
-    this.questions = _.filter(this.questions, function(q: StackQuestion) { return q.questionid != question.questionid });
-    this.store.dispatch({type: GET_TAGS,
-      payload: _.chain(this.state.tags)
-                .each((t: StackTag) => { if (t.Classification == this.selectedTag) t.Unreaded--; })
-                .filter(function(t: StackTag) { return t.Unreaded > 0 }).value()});
-
-  }
-
-  markAsRead(e: MouseEvent, question: StackQuestion) {
-
-    this.markQuestionAsRead(question);
-    e.preventDefault();
-  }
-
-  keyEvent(data: any):void {
-
-    switch (data.key) {
-      case "j":
-        if (this.questions.length > 0)
-          this.markQuestionAsRead(this.questions[0]);
-        break;
-    }
   }
 }
