@@ -4,11 +4,7 @@
     (onMarkAllAsReaded)="markAllAsRead()"
     (onMarkAsReadedOlderOneDay)="markAllAsReadOlderOneDay()"></stack-action-panel>
 
-  <div>
-    <span *ngFor="let tag of state.tags">
-      <a href="/stack" (click)="handleTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
-    </span>
-  </div>
+  <stack-tags></stack-tags>
 
   <div id="stack-table" (window:keydown)="keyEvent($event)">
     <div *ngFor="let q of questions">
