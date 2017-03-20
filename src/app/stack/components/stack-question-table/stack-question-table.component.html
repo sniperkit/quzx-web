@@ -1,16 +1,5 @@
 <div id="stack-table" (window:keydown)="keyEvent($event)">
   <div *ngFor="let q of state.questions">
-    <div class="stack-element">
-      <div class="first-line">
-        <a href="{{q.link}}" class="question-header">{{q.title}}</a>
-        <tag-select [tags]="state.generalTags" [itemId]="q.id" [source]="source" class="tag-select"></tag-select>
-        <a href="#" class="remove-icon" (click)="markAsRead($event, q)">
-          <span class="glyphicon glyphicon-remove "></span>
-        </a>
-      </div>
-      <div class="second-line">
-        [{{q.tags}}] ({{q.creationdate | stringdate | cleandate }})
-      </div>
-    </div>
+    <stack-question-table-element [question]="q"></stack-question-table-element>
   </div>
 </div>

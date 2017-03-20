@@ -1,0 +1,12 @@
+<div class="stack-element">
+  <div class="first-line">
+    <a href="{{question.link}}" class="question-header">{{question.title}}</a>
+    <tag-select [tags]="state.generalTags" [itemId]="question.id" [source]="source" class="tag-select"></tag-select>
+    <a href="#" class="remove-icon" (click)="markAsRead($event, question)">
+      <span class="glyphicon glyphicon-remove "></span>
+    </a>
+  </div>
+  <div class="second-line">
+    [{{question.tags}}] ({{question.creationdate | stringdate | cleandate }})
+  </div>
+</div>

@@ -33,6 +33,7 @@ import { RssFeedTableComponent } from './rss/components/rss-feed-table/rss-feed-
 import { StackActionPanelComponent } from './stack/components/stack-action-panel/stack-action-panel.component';
 import { StackTagsComponent } from './stack/components/stack-tags/stack-tags.component';
 import { StackQuestionTableComponent } from './stack/components/stack-question-table/stack-question-table.component';
+import { StackQuestionTableElementComponent } from './stack/components/stack-question-table-element/stack-question-table-element.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -64,7 +65,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     RssFeedTableComponent,
     StackActionPanelComponent,
     StackTagsComponent,
-    StackQuestionTableComponent
+    StackQuestionTableComponent,
+    StackQuestionTableElementComponent
   ],
   imports: [
     BrowserModule,

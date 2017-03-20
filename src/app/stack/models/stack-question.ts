@@ -5,4 +5,5 @@ export class StackQuestion {
   questionid: number;
   tags: string;
   creationdate: number;
+  classification: string;
 }

@@ -1,29 +1,3 @@
 a { font-size: 13px; }
 
 div#stack-table { margin-top: 20px; }
-
-.stack-element {
-  margin-bottom: 8px;
-}
-
-a.question-header { font-size: 14px; }
-
-.second-line {
-  color: #777;
-  font-size: 13px;
-}
-.second-line a {
-  color: #777;
-}
-
-.tag-select {
-  margin-left: 10px;
-}
-
-.remove-icon {
-  margin-left: 5px;
-  color: #337ab7;
-}
-
-
-
