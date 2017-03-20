@@ -40,10 +40,9 @@ export class StackComponent {
     this.getTags();
   }
 
-  handleTagSelect(event: MouseEvent, tag: string) {
+  handleTagSelect(tag: string) {
     this.selectedTag = tag;
     this.getQuestions();
-    event.preventDefault();
   }
 
   markAllAsRead() {

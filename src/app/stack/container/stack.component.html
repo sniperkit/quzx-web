@@ -4,7 +4,7 @@
     (onMarkAllAsReaded)="markAllAsRead()"
     (onMarkAsReadedOlderOneDay)="markAllAsReadOlderOneDay()"></stack-action-panel>
 
-  <stack-tags></stack-tags>
+  <stack-tags (handleTagSelect)="handleTagSelect($event)"></stack-tags>
 
   <div id="stack-table" (window:keydown)="keyEvent($event)">
     <div *ngFor="let q of questions">
