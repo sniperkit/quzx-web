@@ -15,6 +15,7 @@ import * as _ from 'underscore';
 export class RssFeedTableComponent implements OnInit {
 
   state: AppState;
+  source: string = "rss";
   selectedFeed: RssFeed;
 
   constructor(private store: Store<AppState>,
