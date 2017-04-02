@@ -3,7 +3,7 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise'
 
-import { StackQuestion } from '../models/stack-question'
+import {StackQuestion, SecondTag} from '../models/stack-question'
 import {StackTag} from "../models/stack-tag";
 import {contentHeaders} from "../../common/services/headers";
 import {AppSettings} from "../../common/app.settings";
@@ -23,8 +23,23 @@ export class StackService {
       .catch(this.handleError);
   }
 
+  getSecondTags(classification: string): Promise<SecondTag[]> {
+    return this.http.get(AppSettings.API_ENDPOINT + 'api/stack/secondtags/' + classification, new RequestOptions({headers: contentHeaders}))
+      .toPromise()
+      .then(response => response.json() as StackQuestion[])
+      .catch(this.handleError);
+  }
+
   getQuestions(classification: string): Promise<StackQuestion[]> {
     return this.http.get(this.stackQuestionsUrl + classification, new RequestOptions({headers: contentHeaders}))
+      .toPromise()
+      .then(response => response.json() as StackQuestion[])
+      .catch(this.handleError);
+  }
+
+  getQuestionsByTwoTags(classification: string, second_tag: string): Promise<StackQuestion[]> {
+    return this.http.get(this.stackQuestionsUrl + classification + '/' + second_tag,
+                         new RequestOptions({headers: contentHeaders}))
       .toPromise()
       .then(response => response.json() as StackQuestion[])
       .catch(this.handleError);

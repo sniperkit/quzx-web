@@ -3,3 +3,9 @@
       <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
     </span>
 </div>
+
+<div [hidden]="!showSecondTags">
+    <span *ngFor="let tag of second_tags">
+      <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
+    </span>
+</div>

@@ -17,6 +17,7 @@ export class StackQuestionTableComponent implements OnInit {
 
   state: StackState;
   selectedClassification: string;
+  second_tag: string;
 
   constructor(private store: Store<StackState>,
               private stackService: StackService) {
@@ -27,10 +28,11 @@ export class StackQuestionTableComponent implements OnInit {
   ngOnInit() {
   }
 
-  onTagSelect(classification: string) {
+  onTagSelect(classification: string, second_tag: string) {
 
     this.selectedClassification = classification;
-    this.stackService.getQuestions(classification).then(questions => {
+    this.second_tag = second_tag;
+    this.stackService.getQuestionsByTwoTags(classification, second_tag).then(questions => {
       this.store.dispatch({type: GET_QUESTIONS, payload: questions});
     });
   }

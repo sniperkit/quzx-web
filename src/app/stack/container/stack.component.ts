@@ -21,6 +21,7 @@ export class StackComponent {
 
   state: StackState;
   selectedTag: string = "";
+  secondTag: string = "";
 
   constructor(private store: Store<StackState>,
               private stackService: StackService,
@@ -35,10 +36,10 @@ export class StackComponent {
     this.getTags();
   }
 
-  handleTagSelect(classification: string) {
-    this.selectedTag = classification;
-    this.questionTable.onTagSelect(classification)
-
+  handleTagSelect(tags: string[]) {
+    this.selectedTag = tags[0];
+    this.secondTag = tags[1];
+    this.questionTable.onTagSelect(this.selectedTag, this.secondTag);
   }
 
   markAllAsRead() {
