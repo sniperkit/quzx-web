@@ -5,7 +5,7 @@
 </div>
 
 <div [hidden]="!showSecondTags">
-    <span *ngFor="let tag of second_tags">
+    <span *ngFor="let tag of state.secondTags">
       <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
     </span>
 </div>

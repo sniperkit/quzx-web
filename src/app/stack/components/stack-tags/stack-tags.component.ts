@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import {StackState, GET_QUESTIONS, SET_SELECTED_TAG, SET_SECOND_TAG} from '../../actions/stack.actions';
+import {
+  StackState, GET_QUESTIONS, SET_SELECTED_TAG, SET_SECOND_TAG,
+  GET_SECOND_TAGS
+} from '../../actions/stack.actions';
 import {StackService} from "../../services/stack.service";
 import {StackQuestion, SecondTag} from "../../models/stack-question";
 
@@ -14,8 +17,6 @@ export class StackTagsComponent implements OnInit {
 
   @Output() handleTagSelect = new EventEmitter();
   state: StackState;
-
-  second_tags: SecondTag[];
   showSecondTags: boolean = false;
 
   constructor(private store: Store<StackState>,
@@ -31,10 +32,10 @@ export class StackTagsComponent implements OnInit {
 
     this.stackService.getSecondTags(classification).then(second_tags => {
 
-      this.second_tags = second_tags;
+      this.store.dispatch({type: GET_SECOND_TAGS, payload: second_tags});
 
-      if ((this.second_tags.length == 0) ||
-          (this.second_tags.length == 1 && this.second_tags[0].details == "general")) {
+      if ((second_tags.length == 0) ||
+          (second_tags.length == 1 && second_tags[0].details == "general")) {
 
         this.handleTagSelect.emit();
         this.showSecondTags = false;

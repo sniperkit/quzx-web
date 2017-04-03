@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store'
-import { StackQuestion } from "../models/stack-question";
+import {StackQuestion, SecondTag} from "../models/stack-question";
 import { StackTag } from "../models/stack-tag";
 
 import * as _ from 'underscore';
@@ -7,6 +7,7 @@ import {Tag} from "../../tags/tags";
 
 export interface StackState {
   tags: StackTag[];
+  secondTags: SecondTag[];
   questions: StackQuestion[];
   generalTags: Tag[];
   selectedTag: string;
@@ -15,6 +16,7 @@ export interface StackState {
 
 const initialState: StackState = {
   tags: [],
+  secondTags: [],
   questions: [],
   generalTags: [],
   selectedTag: '',
@@ -22,6 +24,7 @@ const initialState: StackState = {
 };
 
 export const GET_TAGS = 'GET_TAGS';
+export const GET_SECOND_TAGS = 'GET_SECOND_TAGS';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const GET_GENERAL_TAGS = 'GET_GENERAL_TAGS';
 export const SET_QUESTION_AS_READ = 'SET_QUESTION_AS_READ';
@@ -36,6 +39,10 @@ export function stackReducer(state: StackState = initialState, action: Action): 
       return Object.assign({}, state, {tags: action.payload});
     }
 
+    case GET_SECOND_TAGS: {
+      return Object.assign({}, state, {secondTags: action.payload});
+    }
+
     case GET_QUESTIONS: {
       return Object.assign({}, state, {questions: action.payload});
     }
@@ -46,16 +53,21 @@ export function stackReducer(state: StackState = initialState, action: Action): 
 
     case SET_QUESTION_AS_READ: {
 
-      return {
-        tags: _.chain(state.tags)
-               .each((t: StackTag) => { if (t.Classification == action.payload.classification) t.Unreaded--; })
-               .filter(function(t: StackTag) { return t.Unreaded > 0 }).value(),
-        questions: _.filter(state.questions,
-          function(q: StackQuestion) { return q.questionid != action.payload.questionid }),
-        generalTags: state.generalTags,
-        selectedTag: state.selectedTag,
-        secondTag: state.secondTag
-      }
+      let question = action.payload;
+      let firstTag = question.classification;
+      let secondTag = question.details;
+
+      let tags = _.chain(state.tags)
+                  .each((t: StackTag) => { if (t.Classification == firstTag) t.Unreaded--; })
+                  .filter(function(t: StackTag) { return t.Unreaded > 0 }).value();
+      let questions = _.filter(state.questions,
+                          function(q: StackQuestion) { return q.questionid != action.payload.questionid });
+      let secondTags = _.chain(state.secondTags)
+                        .each((t: SecondTag) => { if (t.details == secondTag) t.count--; })
+                        .filter(function(t: SecondTag) { return t.count > 0 }).value();
+
+      return Object.assign({}, state, { tags: tags, secondTags: secondTags, questions: questions});
+
     }
 
     case SET_SELECTED_TAG: {
