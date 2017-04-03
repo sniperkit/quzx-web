@@ -1,11 +1,13 @@
-<div>
-    <span *ngFor="let tag of state.tags">
-      <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
-    </span>
-</div>
+<div class="row col-md-12 tags-panel">
+  <div>
+      <span *ngFor="let tag of state.tags">
+        <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
+      </span>
+  </div>
 
-<div [hidden]="!showSecondTags">
-    <span *ngFor="let tag of state.secondTags">
-      <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
-    </span>
+  <div [hidden]="!showSecondTags">
+      <span *ngFor="let tag of state.secondTags">
+        <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
+      </span>
+  </div>
 </div>

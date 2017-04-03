@@ -29,6 +29,7 @@ export class StackTagsComponent implements OnInit {
   onTagSelect(e: MouseEvent, classification: string) {
 
     this.store.dispatch({type: SET_SELECTED_TAG, payload: classification});
+    this.store.dispatch({type: SET_SECOND_TAG, payload: ''});
 
     this.stackService.getSecondTags(classification).then(second_tags => {
 
