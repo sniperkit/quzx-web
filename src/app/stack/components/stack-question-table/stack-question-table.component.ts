@@ -16,8 +16,6 @@ import {StackTag} from "../../models/stack-tag";
 export class StackQuestionTableComponent implements OnInit {
 
   state: StackState;
-  selectedClassification: string;
-  second_tag: string;
 
   constructor(private store: Store<StackState>,
               private stackService: StackService) {
@@ -28,11 +26,9 @@ export class StackQuestionTableComponent implements OnInit {
   ngOnInit() {
   }
 
-  onTagSelect(classification: string, second_tag: string) {
+  onTagSelect() {
 
-    this.selectedClassification = classification;
-    this.second_tag = second_tag;
-    this.stackService.getQuestionsByTwoTags(classification, second_tag).then(questions => {
+    this.stackService.getQuestionsByTwoTags(this.state.selectedTag, this.state.secondTag).then(questions => {
       this.store.dispatch({type: GET_QUESTIONS, payload: questions});
     });
   }

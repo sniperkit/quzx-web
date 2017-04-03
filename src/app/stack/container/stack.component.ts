@@ -20,8 +20,6 @@ export class StackComponent {
   @ViewChild('questiontable') questionTable: StackQuestionTableComponent;
 
   state: StackState;
-  selectedTag: string = "";
-  secondTag: string = "";
 
   constructor(private store: Store<StackState>,
               private stackService: StackService,
@@ -36,15 +34,13 @@ export class StackComponent {
     this.getTags();
   }
 
-  handleTagSelect(tags: string[]) {
-    this.selectedTag = tags[0];
-    this.secondTag = tags[1];
-    this.questionTable.onTagSelect(this.selectedTag, this.secondTag);
+  handleTagSelect() {
+    this.questionTable.onTagSelect();
   }
 
   markAllAsRead() {
 
-    var tag = this.selectedTag;
+    var tag = this.state.selectedTag;
     this.stackService.setQuestionsAsReadByClassification(tag).then(() => {
       this.stackService.getStackTags().then(tags => {
         this.store.dispatch({type: GET_TAGS, payload: tags});
@@ -55,7 +51,7 @@ export class StackComponent {
   markAllAsReadOlderOneDay() {
 
     let moment = Math.round((new Date().getTime()) / 1000) - 24 * 60 * 60;
-    var tag = this.selectedTag;
+    var tag = this.state.selectedTag;
     this.stackService.setQuestionsAsReadByClassificationFromTime(tag, moment).then(() => {
       this.stackService.getStackTags().then(tags => {
         this.store.dispatch({type: GET_TAGS, payload: tags});

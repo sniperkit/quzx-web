@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import {StackState, GET_QUESTIONS} from '../../actions/stack.actions';
+import {StackState, GET_QUESTIONS, SET_SELECTED_TAG, SET_SECOND_TAG} from '../../actions/stack.actions';
 import {StackService} from "../../services/stack.service";
 import {StackQuestion, SecondTag} from "../../models/stack-question";
 
@@ -16,8 +16,6 @@ export class StackTagsComponent implements OnInit {
   state: StackState;
 
   second_tags: SecondTag[];
-  classification: string;
-  details: string;
   showSecondTags: boolean = false;
 
   constructor(private store: Store<StackState>,
@@ -29,21 +27,16 @@ export class StackTagsComponent implements OnInit {
 
   onTagSelect(e: MouseEvent, classification: string) {
 
-    this.classification = classification;
-    this.details = "";
+    this.store.dispatch({type: SET_SELECTED_TAG, payload: classification});
 
     this.stackService.getSecondTags(classification).then(second_tags => {
 
-      this.second_tags = second_tags.map((t: SecondTag) => {
-        if (t.details == "")
-          t.details = "general"
-        return t;
-      });
+      this.second_tags = second_tags;
 
       if ((this.second_tags.length == 0) ||
           (this.second_tags.length == 1 && this.second_tags[0].details == "general")) {
 
-        this.handleTagSelect.emit([this.classification, ""]);
+        this.handleTagSelect.emit();
         this.showSecondTags = false;
       } else {
         this.store.dispatch({type: GET_QUESTIONS, payload: []});
@@ -56,14 +49,11 @@ export class StackTagsComponent implements OnInit {
 
   onSecondTagSelect(e: MouseEvent, second_tag: string) {
 
-    if (second_tag == "general")
-      second_tag = "";
-
-    this.handleTagSelect.emit([this.classification, second_tag]);
+    this.store.dispatch({type: SET_SECOND_TAG, payload: second_tag});
+    this.handleTagSelect.emit([this.state.selectedTag, second_tag]);
     e.preventDefault();
   }
 
   ngOnInit() {
   }
-
 }
