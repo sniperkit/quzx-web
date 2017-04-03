@@ -17,7 +17,7 @@ export class StackTagsComponent implements OnInit {
 
   @Output() handleTagSelect = new EventEmitter();
   state: StackState;
-  showSecondTags: boolean = false;
+  showSecondTags: boolean = true;
 
   constructor(private store: Store<StackState>,
              private stackService: StackService) {
@@ -33,16 +33,7 @@ export class StackTagsComponent implements OnInit {
     this.stackService.getSecondTags(classification).then(second_tags => {
 
       this.store.dispatch({type: GET_SECOND_TAGS, payload: second_tags});
-
-      if ((second_tags.length == 0) ||
-          (second_tags.length == 1 && second_tags[0].details == "general")) {
-
-        this.handleTagSelect.emit();
-        this.showSecondTags = false;
-      } else {
-        this.store.dispatch({type: GET_QUESTIONS, payload: []});
-        this.showSecondTags = true;
-      }
+      this.handleTagSelect.emit();
     });
 
     e.preventDefault();
