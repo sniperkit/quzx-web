@@ -1,4 +1,4 @@
-<div id="stack-table" (window:keydown)="keyEvent($event)">
+<div id="stack-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
   <div *ngFor="let q of state.questions">
     <stack-question-table-element [question]="q"></stack-question-table-element>
   </div>

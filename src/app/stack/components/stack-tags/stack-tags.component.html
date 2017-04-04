@@ -1,4 +1,4 @@
-<div class="row col-md-12 tags-panel">
+<div class="row col-md-12">
   <div>
       <span *ngFor="let tag of state.tags">
         <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
