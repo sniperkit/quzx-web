@@ -1,2 +1,6 @@
 a { font-size: 13px; }
 
+.current-tag-label{
+  margin-left: 3px;
+  margin-right: 3px;
+}

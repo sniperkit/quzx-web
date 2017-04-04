@@ -1,13 +1,20 @@
 <div class="row col-md-12">
-  <div>
+
+  <span [hidden]="state.tagState > 0">
       <span *ngFor="let tag of state.tags">
         <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
       </span>
-  </div>
+  </span>
 
-  <div [hidden]="!showSecondTags">
+  <span [hidden]="state.tagState == 0">
+    <a href="/stack" class="back-tag" (click)="onBackTagSelect($event)"><span class="glyphicon glyphicon-backward"></span></a>
+    <a href="/stack" class="current-tag-label" (click)="onTagSelect($event, state.selectedTag)">{{state.selectedTag}}:</a>
+  </span>
+
+
+  <span [hidden]="!showSecondTags">
       <span *ngFor="let tag of state.secondTags">
         <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
       </span>
-  </div>
+  </span>
 </div>

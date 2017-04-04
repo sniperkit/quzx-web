@@ -5,6 +5,12 @@ import { StackTag } from "../models/stack-tag";
 import * as _ from 'underscore';
 import {Tag} from "../../tags/tags";
 
+export enum TagState {
+  NoneSelected,
+  FirstSelected,
+  SecondSelected
+}
+
 export interface StackState {
   tags: StackTag[];
   secondTags: SecondTag[];
@@ -12,6 +18,7 @@ export interface StackState {
   generalTags: Tag[];
   selectedTag: string;
   secondTag: string;
+  tagState: TagState;
 }
 
 const initialState: StackState = {
@@ -20,7 +27,8 @@ const initialState: StackState = {
   questions: [],
   generalTags: [],
   selectedTag: '',
-  secondTag: ''
+  secondTag: '',
+  tagState: TagState.NoneSelected
 };
 
 export const GET_TAGS = 'GET_TAGS';
@@ -30,6 +38,7 @@ export const GET_GENERAL_TAGS = 'GET_GENERAL_TAGS';
 export const SET_QUESTION_AS_READ = 'SET_QUESTION_AS_READ';
 export const SET_SELECTED_TAG = 'SET_SELECTED_TAG';
 export const SET_SECOND_TAG = 'SET_SECOND_TAG';
+export const RESET_SELECTED_TAGS = 'RESET_SELECTED_TAGS';
 
 export function stackReducer(state: StackState = initialState, action: Action): StackState {
 
@@ -71,11 +80,17 @@ export function stackReducer(state: StackState = initialState, action: Action): 
     }
 
     case SET_SELECTED_TAG: {
-      return Object.assign({}, state, {selectedTag: action.payload})
+      return Object.assign({}, state, { selectedTag: action.payload, tagState: TagState.FirstSelected })
     }
 
     case SET_SECOND_TAG: {
-      return Object.assign({}, state, {secondTag: action.payload})
+
+      let tagState = action.payload === "" ? TagState.FirstSelected : TagState.SecondSelected;
+      return Object.assign({}, state, { secondTag: action.payload, tagState: tagState })
+    }
+
+    case RESET_SELECTED_TAGS: {
+      return Object.assign({}, state, { selectedTag: '', secondTag: '', tagState: TagState.NoneSelected })
     }
 
     default:
