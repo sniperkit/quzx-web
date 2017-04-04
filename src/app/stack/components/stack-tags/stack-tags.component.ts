@@ -16,13 +16,11 @@ export class StackTagsComponent implements OnInit {
 
   @Output() handleTagSelect = new EventEmitter();
   state: StackState;
-  showSecondTags: boolean = true;
 
   constructor(private store: Store<StackState>,
              private stackService: StackService) {
     store.select('stackReducer').subscribe((data: StackState) => {
       this.state = data;
-      console.log(data);
     });
   }
 
