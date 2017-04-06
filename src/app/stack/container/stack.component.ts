@@ -25,6 +25,8 @@ export class StackComponent {
               private stackService: StackService,
               private tagsService: TagsService) {
 
+    console.log('component constructor');
+
     store.select('stackReducer').subscribe((data: StackState) => this.state = data );
 
     this.stackService.getStackTags().then(tags => {

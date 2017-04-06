@@ -7,14 +7,14 @@
   </span>
 
   <span [hidden]="state.tagState == 0">
-    <a href="/stack" class="back-tag" (click)="onBackTagSelect($event)"><span class="glyphicon glyphicon-backward"></span></a>
-    <a href="/stack" class="current-tag-label" (click)="onTagSelect($event, state.selectedTag)">{{state.selectedTag}}:</a>
+    <a href="#" class="back-tag" (click)="onBackTagSelect($event)"><span class="glyphicon glyphicon-backward"></span></a>
+    <a href="#" class="current-tag-label" (click)="onTagSelect($event, state.selectedTag)">{{state.selectedTag}}:</a>
   </span>
 
 
   <span [hidden]="state.tagState == 0">
       <span *ngFor="let tag of state.secondTags">
-        <a href="/stack" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
+        <a href="#" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
       </span>
   </span>
 </div>

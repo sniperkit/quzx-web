@@ -74,7 +74,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     DropdownModule.forRoot(),
     ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     StoreModule.provideStore({ feedsReducer, stackReducer })
   ],
   providers: [AuthGuard, AuthHttp, {
