@@ -1,0 +1,24 @@
+<div class="section container-fluid">
+
+  <div class="row col-md-12 hn-panel">
+    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsRead($event)">
+      Mark all as read
+    </button>
+    <button type="button" class="btn btn-default btn-xs" (click)="markAllAsReadOlderOneDay($event)">
+      Mark as read items older than a day
+    </button>
+  </div>
+
+  <div id="news-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
+    <div *ngFor="let i of items">
+      <div class="item-element">
+        <div class="first-line">
+          <a href="{{i.Url}}">{{i.Title}}</a>
+        </div>
+        <div class="second-line">
+          ({{i.Time | stringdate | cleandate }}) [<a href="https://news.ycombinator.com/item?id={{i.Id}}">{{i.Type}}</a> with {{i.Score}}] (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

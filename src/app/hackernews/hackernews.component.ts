@@ -8,55 +8,8 @@ import * as _ from 'underscore';
 @Component({
   moduleId: module.id,
   selector: 'hacker-news',
-  template:
-    `
-    <div class="section container-fluid">
-          
-      <div class="row col-md-12 hn-panel">          
-        <button type="button" class="btn btn-default btn-xs" (click)="markAllAsRead($event)">
-          Mark all as read            
-        </button>
-        <button type="button" class="btn btn-default btn-xs" (click)="markAllAsReadOlderOneDay($event)">
-          Mark as read items older than a day            
-        </button>
-      </div>
-          
-      <div id="news-table" class="row col-md-12" (window:keydown)="keyEvent($event)">
-        <div *ngFor="let i of items">
-          <div class="item-element">
-            <div class="first-line">
-              <a href="{{i.Url}}">{{i.Title}}</a> 
-            </div>
-            <div class="second-line">
-              ({{i.Time | stringdate | cleandate }}) [<a href="https://news.ycombinator.com/item?id={{i.Id}}">{{i.Type}}</a> with {{i.Score}}] (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
-            </div>            
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`                   
-    .section { 
-      margin-top: 15px;
-      margin-left: 20px;
-      margin-right: 20px;
-    }     
-    div#news-table { 
-        margin-top: 10px;       
-        line-height: 1.1;
-      }    
-      .item-element {
-        margin-bottom: 5px;
-      }
-      .second-line { 
-        color: #777; 
-        font-size: 13px;
-       }
-      .second-line a {
-        color: #777;
-      }                                           
-      a { font-size: 13px; }
-`],
+  templateUrl: 'hackernews.component.html',
+  styleUrls: ['hackernews.component.css'],
   providers: [HackerNewsService]
 })
 
