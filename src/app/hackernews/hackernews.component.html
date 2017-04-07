@@ -13,10 +13,10 @@
     <div *ngFor="let i of items">
       <div class="item-element">
         <div class="first-line">
-          <a href="{{i.Url}}">{{i.Title}}</a>
+          <a href="https://news.ycombinator.com/item?id={{i.Id}}">{{i.Title}}</a>
         </div>
         <div class="second-line">
-          ({{i.Time | stringdate | cleandate }}) [<a href="https://news.ycombinator.com/item?id={{i.Id}}">{{i.Type}}</a> with {{i.Score}}] (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
+          ({{i.Time | stringdate | cleandate }}) [<a href="{{i.Url}}">{{i.Type}}</a> with {{i.Score}}] (<a href="#" (click)="markAsRead($event, i)">mark-as-read</a>)
         </div>
       </div>
     </div>
