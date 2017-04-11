@@ -8,11 +8,11 @@ import { TagsService } from "../../tags/tags.service";
   selector: 'tag-select',
   template:
     `
-      <div class="btn-group tags" dropdown>
-        <a href="#" dropdownToggle>
+      <div class="btn-group tags" dropdown>       
+        <a href="#" dropdownToggle (click)="$event.preventDefault();">
           <span class="glyphicon glyphicon-tags"></span>
         </a>
-        <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu dropdown-menu-right">
           <li *ngFor="let t of tags" role="menuitem"><a href="#" (click)="onInsertTag($event, t)">{{t.title}}</a></li>
         </ul>
       </div>              
@@ -42,6 +42,8 @@ export class TagSelectComponent {
 
   onInsertTag(e: MouseEvent, t: Tag): void {
 
+    e.preventDefault();
+
     switch(this.source)
     {
       case "stack":
@@ -51,7 +53,5 @@ export class TagSelectComponent {
         this.tagsService.insertTaggedItem(this.itemId, t.id, 2);
         break;
     }
-
-    e.preventDefault();
   }
 }

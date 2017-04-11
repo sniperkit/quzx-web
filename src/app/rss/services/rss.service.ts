@@ -28,7 +28,11 @@ export class RssService {
   }
 
   getFeed(id: number): Promise<RssFeed> {
-    return this.getFeeds(AppSettings.API_ENDPOINT  + 'api/rss/feeds/' + id);
+    let url = AppSettings.API_ENDPOINT  + 'api/rss/feeds/' + id;
+    return this.http.get(url, new RequestOptions({headers: contentHeaders}))
+      .toPromise()
+      .then(response => response.json() as RssFeed)
+      .catch(this.handleError);
   }
 
   putFeed(feed :RssFeed): Promise<any> {

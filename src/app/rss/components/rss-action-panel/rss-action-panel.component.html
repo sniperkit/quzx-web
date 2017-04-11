@@ -5,7 +5,7 @@
       Display
       <span class="caret"></span>
     </button>
-    <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+    <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
       <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.ShowContent)">Show content</a></li>
       <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByNewest)">Sort by newest</a></li>
       <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByOldest)">Sort by oldest</a></li>
@@ -17,7 +17,7 @@
       Action
       <span class="caret"></span>
     </button>
-    <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+    <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
       <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.Edit)">Edit</a></li>
       <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.Unsubscribe)">Unsubscribe</a></li>
     </ul>

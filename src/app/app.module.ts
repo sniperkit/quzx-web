@@ -9,7 +9,8 @@ import { feedsReducer } from './rss/actions/rss';
 import {stackReducer} from "./stack/actions/stack.actions";
 
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from 'angular2-jwt';
-import { DropdownModule, ModalModule } from 'ng2-bootstrap'
+import {  ModalModule } from 'ngx-bootstrap';
+import {  BsDropdownModule } from 'ngx-bootstrap';
 
 import { AppComponent }  from './app.component';
 import { appRoutes } from './routes'
@@ -72,7 +73,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserModule,
     FormsModule,
     HttpModule,
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true }),
     StoreModule.provideStore({ feedsReducer, stackReducer })

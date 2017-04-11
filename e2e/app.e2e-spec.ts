@@ -1,10 +1,10 @@
-import { SOMEPage } from './app.po';
+import { QuzxWebPage } from './app.po';
 
-describe('some App', function() {
-  let page: SOMEPage;
+describe('quzx-web App', () => {
+  let page: QuzxWebPage;
 
   beforeEach(() => {
-    page = new SOMEPage();
+    page = new QuzxWebPage();
   });
 
   it('should display message saying app works', () => {

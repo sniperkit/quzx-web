@@ -30,7 +30,7 @@ import {ActivatedRoute} from "@angular/router";
                   Display
                   <span class="caret"></span>
                 </button>
-                <ul dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu-right">
+                <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu dropdown-menu-right">
                   <li role="menuitem"><a href="#" (click)="onChangeShowContent($event)">Show content</a></li>
                   <!-- <li role="menuitem"><a href="#" (click)="onSortByNewest($event)">Sort by newest</a></li>
                   <li role="menuitem"><a href="#" (click)="onSortByOldest($event)">Sort by oldest</a></li> -->                 

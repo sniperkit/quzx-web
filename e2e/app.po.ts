@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class SOMEPage {
+export class QuzxWebPage {
   navigateTo() {
     return browser.get('/');
   }

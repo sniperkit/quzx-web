@@ -26,7 +26,7 @@ export class StackService {
   getSecondTags(classification: string): Promise<SecondTag[]> {
     return this.http.get(AppSettings.API_ENDPOINT + 'api/stack/secondtags/' + classification, new RequestOptions({headers: contentHeaders}))
       .toPromise()
-      .then(response => response.json() as StackQuestion[])
+      .then(response => response.json() as SecondTag[])
       .catch(this.handleError);
   }
 
