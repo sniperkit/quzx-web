@@ -1,0 +1,19 @@
+<div class="jumbotron vertical-center">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-2 col-md-offset-5">
+        <form #loginForm="ngForm" class="form-horizontal" (ngSubmit)="login()">
+          <div class="form-group form-group-sm">
+              <input [(ngModel)]="username" id="username" name="username" type="text" class="form-control input-sm"/>
+          </div>
+          <div class="form-group form-group-sm">
+              <input [(ngModel)]="password" id="password" name="password" type="text" class="form-control imput-sm"/>
+          </div>
+          <button type="submit" class="btn btn-default">Login</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

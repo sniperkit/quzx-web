@@ -6,25 +6,8 @@ import { UserService } from '../common/services/user.service'
 @Component({
   moduleId: module.id,
   selector: 'login',
-  template:
-    `
-    <div>
-      <form #loginForm="ngForm" (ngSubmit)="login()">
-        <div>
-          <label for="username">Username:</label>
-          <input [(ngModel)]="username" id="username" name="username" type="text"/>
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input [(ngModel)]="password" id="password" name="password" type="text"/>
-        </div>
-        <button type="submit">Login</button>
-      </form>      
-    </div>
-  `,
-  styles: [`                   
-   
-`],
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.css'],
   providers: [UserService]
 })
 
