@@ -6,7 +6,7 @@ import { RssService } from '../rss/services/rss.service';
 
 import * as _ from 'underscore';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GET_FEEDS, SET_NAME_FILTER, SettingsFeedState} from './actions/settings.feed.actions';
+import {GET_FEEDS, SET_NAME_FILTER, SET_SECTION_FILTER, SettingsFeedState} from './actions/settings.feed.actions';
 
 @Component({
   moduleId: module.id,
@@ -50,5 +50,9 @@ export class FeedsComponent {
     this.store.dispatch({type: SET_NAME_FILTER, payload: name});
   }
 
+  onCategoryFilter(e: MouseEvent, category: number) {
+    this.store.dispatch({type: SET_SECTION_FILTER, payload: category });
+    e.preventDefault();
+  }
 }
 
