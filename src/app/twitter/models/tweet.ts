@@ -3,7 +3,7 @@ export class Tweet {
   id: number;
   id_str: string;
   source: string;
-  text: string;
+  full_text: string;
   user: TweetUser;
 }
 

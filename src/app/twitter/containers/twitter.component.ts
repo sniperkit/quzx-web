@@ -19,7 +19,7 @@ export class TwitterComponent {
   constructor(private tweetService: TweetService) { }
 
   getTweets(): void {
-    this.tweetService.getTweets("meditat0r").then(tweets => this.tweets = tweets);
+    this.tweetService.getTweets("meditat0r").then(tweets => { this.tweets = tweets; console.log(this.tweets); });
   }
 
   markAsRead(e: MouseEvent, id: string) {
