@@ -4,10 +4,28 @@
     <button type="button" class="btn btn-default btn-xs" (click)="subscribe()">
       Subscribe
     </button>
-    <input #filterbox type="text" id="feed-search" (keyup)="onFilter(filterbox.value)">
+
+    <span>
+      <input #filterbox type="text" id="feed-search" placeholder="Name" (keyup)="onNameFilter(filterbox.value)">
+
+      <div class="btn-group" dropdown>
+        <button type="button" class="btn btn-default btn-xs dropdown-toggle" dropdownToggle>
+          Category
+          <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
+          <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.ShowContent)">RSS</a></li>
+          <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByNewest)">Torrents</a></li>
+          <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByOldest)">Reddit</a></li>
+        </ul>
   </div>
 
-  <div *ngFor="let feedType of feedTypes" class="row col-md-12">
+
+    </span>
+
+  </div>
+
+  <div *ngFor="let feedType of state.feedTypes" class="row col-md-12">
 
     <div class="row col-md-12">{{feedType}}</div>
 

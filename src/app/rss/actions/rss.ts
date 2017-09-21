@@ -1,8 +1,8 @@
-import { Action } from '@ngrx/store'
-import {RssFeed, RssItem} from "../models/rss";
+import { Action } from '@ngrx/store';
+import {RssFeed, RssItem} from '../models/rss';
 
 import * as _ from 'underscore';
-import {Tag} from "../../tags/tags";
+import {Tag} from '../../tags/tags';
 
 export interface AppState {
   feeds: RssFeed[];
@@ -29,7 +29,7 @@ export const GET_RSS_TAGS = 'GET_RSS_TAGS';
 
 export function feedsReducer(state: AppState = initialState, action: Action): AppState {
 
-  switch(action.type) {
+  switch (action.type) {
 
     case GET_FEEDS: {
 

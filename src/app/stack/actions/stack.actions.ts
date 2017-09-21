@@ -1,9 +1,9 @@
-import { Action } from '@ngrx/store'
-import {StackQuestion, SecondTag} from "../models/stack-question";
-import { StackTag } from "../models/stack-tag";
+import { Action } from '@ngrx/store';
+import {StackQuestion, SecondTag} from '../models/stack-question';
+import { StackTag } from '../models/stack-tag';
 
 import * as _ from 'underscore';
-import {Tag} from "../../tags/tags";
+import {Tag} from '../../tags/tags';
 
 export enum TagState {
   NoneSelected,

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { RssFeed, RssItem } from '../rss/models/rss';
 import { RssService } from '../rss/services/rss.service';
 
 import * as _ from 'underscore';
 import {ActivatedRoute, Router} from '@angular/router';
+import {GET_FEEDS, SET_NAME_FILTER, SettingsFeedState} from './actions/settings.feed.actions';
 
 @Component({
   moduleId: module.id,
@@ -16,42 +18,36 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 export class FeedsComponent {
 
-  feeds: RssFeed[];
-  feedsToDisplay: RssFeed[];
-  feedTypes: number[];
+  state: SettingsFeedState;
 
-  constructor(private rssService: RssService,
+  constructor(private store: Store<SettingsFeedState>,
+              private rssService: RssService,
               private router: Router) {
+
+    store.select('settingsFeedReducer').subscribe((data: SettingsFeedState) =>  {
+
+      this.state = data;
+      console.log(this.state);
+    });
   }
 
   ngOnInit(): void {
 
     this.rssService.getAllFeeds().then(feeds => {
-
-      this.feeds = feeds;
-      this.feedTypes = _.chain(this.feeds)
-                        .map(function(f: RssFeed) { return f.RssType; })
-                        .uniq().value();
-      this.feedsToDisplay = this.feeds;
+      this.store.dispatch({type: GET_FEEDS, payload: feeds});
     });
   }
 
   feedsByType(t: number): RssFeed[] {
-    return _.filter(this.feedsToDisplay, function(f: RssFeed) { return f.RssType == t; });
+    return _.filter(this.state.feedsToDisplay, function(f: RssFeed) { return f.RssType === t; });
   }
 
   subscribe() {
     this.router.navigate(['feeds/0']);
   }
 
-  onFilter(s: string) {
-
-    if (s.length > 0) {
-      this.feedsToDisplay = _.filter(this.feeds, function(f: RssFeed) { return f.AlternativeName.indexOf(s) > -1; });
-    } else {
-      this.feedsToDisplay = this.feeds;
-    }
-
+  onNameFilter(name: string) {
+    this.store.dispatch({type: SET_NAME_FILTER, payload: name});
   }
 
 }
