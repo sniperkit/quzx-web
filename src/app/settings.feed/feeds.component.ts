@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
 
 import { RssFeed, RssItem } from '../rss/models/rss';
 import { RssService } from '../rss/services/rss.service';
 
 import * as _ from 'underscore';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -79,12 +79,13 @@ export class FeedsComponent {
   }
 
   subscribe() {
-    this.router.navigate(['feeds/0'])
+    this.router.navigate(['feeds/0']);
   }
 
   onFilter(s: string) {
+
     if (s.length > 0) {
-      this.feedsToDisplay = _.filter(this.feeds, function(f: RssFeed) { return f.Title.indexOf(s) > 0; })
+      this.feedsToDisplay = _.filter(this.feeds, function(f: RssFeed) { return f.AlternativeName.indexOf(s) > -1; });
     } else {
       this.feedsToDisplay = this.feeds;
     }
