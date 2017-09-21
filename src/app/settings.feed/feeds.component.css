@@ -1,0 +1,15 @@
+a { font-size: 13px; }
+
+.feed-section {
+  margin-top: 4px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 13px;
+}
+
+.feed-panel {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+a.broken { color: red; }
