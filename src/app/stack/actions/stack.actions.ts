@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import {StackQuestion, SecondTag} from '../models/stack-question';
-import { StackTag } from '../models/stack-tag';
+import { StackTag } from '../../common/models/stack-tag';
 
 import * as _ from 'underscore';
 import {Tag} from '../../tags/tags';

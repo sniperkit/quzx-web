@@ -1,0 +1,11 @@
+<div class="stack-tags-section container-fluid">
+  <div *ngFor="let tag of state.tags" class="row col-md-12">
+    <div class="row col-md-4">{{tag.Classification}}</div>
+    <div class="row col-md-4">{{tag.Details}}</div>
+    <div class="row col-md-1">{{tag.Unreaded}}</div>
+    <div class="row col-md-1">{{tag.Hidden}}</div>
+
+    <div *ngIf="tag.Hidden" (click)="onChangeVisibility(tag.Id)" class="row col-md-2">Show</div>
+    <div *ngIf="!tag.Hidden" (click)="onChangeVisibility(tag.Id)" class="row col-md-2">Hide</div>
+  </div>
+</div>

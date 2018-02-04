@@ -6,7 +6,7 @@ import {StackState, GET_TAGS, GET_QUESTIONS, SET_QUESTION_AS_READ} from '../../a
 import {StackQuestion} from "../../models/stack-question";
 
 import * as _ from "underscore";
-import {StackTag} from "../../models/stack-tag";
+import {StackTag} from "../../../common/models/stack-tag";
 
 @Component({
   selector: 'stack-question-table',

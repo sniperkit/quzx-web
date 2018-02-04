@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
 
-import 'rxjs/add/operator/toPromise'
+import 'rxjs/add/operator/toPromise';
 
-import {StackQuestion, SecondTag} from '../models/stack-question'
-import {StackTag} from "../models/stack-tag";
-import {contentHeaders} from "../../common/services/headers";
-import {AppSettings} from "../../common/app.settings";
+import {StackQuestion, SecondTag} from '../models/stack-question';
+import {StackTag} from '../../common/models/stack-tag';
+import {contentHeaders} from '../../common/services/headers';
+import {AppSettings} from '../../common/app.settings';
 
 @Injectable()
 export class StackService {
@@ -66,6 +66,15 @@ export class StackService {
 
     return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/from-time/as-read',
       '{"tag":"' + classification + '", "fromTime":' + time + '}', new RequestOptions({headers: contentHeaders}))
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  changeTagVisibility(tagId: number): Promise<any> {
+
+    return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/' + tagId + '/changeVisibility',
+      '{"id":' + tagId + '}', new RequestOptions({headers: contentHeaders}))
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
