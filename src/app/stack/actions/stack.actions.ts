@@ -72,7 +72,6 @@ export function stackReducer(state: StackState = initialState, action: Action): 
       const questions = _.filter(state.questions,
                             function(q: StackQuestion) { return q.questionid !==  action.payload.questionid });
 
-      console.log(state.secondTags)
       const secondTags = _.chain(state.secondTags)
                           .each((t: SecondTag) => { if (t.Details === secondTag) { t.Unreaded--; }})
                           .filter(function(t: SecondTag) { return t.Unreaded > 0; }).value();
