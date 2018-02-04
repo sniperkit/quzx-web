@@ -36,11 +36,12 @@ export class StackQuestionTableComponent implements OnInit {
   keyEvent(data: any):void {
 
     switch (data.key) {
-      case "j":
+      case 'j':
 
-        if (this.state.questions.length > 0)
+        if (this.state.questions.length > 0) {
           this.stackService.setQuestionAsRead(this.state.questions[0].questionid);
           this.store.dispatch({type: SET_QUESTION_AS_READ, payload: this.state.questions[0]});
+        }
         break;
     }
   }

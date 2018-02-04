@@ -2,7 +2,7 @@
 
   <span [hidden]="state.tagState > 0">
       <span *ngFor="let tag of state.tags">
-        <a href="/stack" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
+        <a href="/stack"  [class.hidden-tag]="tag.Hidden==1" (click)="onTagSelect($event, tag.Classification)">{{tag.Classification}} ({{tag.Unreaded}})</a>
       </span>
   </span>
 
@@ -14,7 +14,7 @@
 
   <span [hidden]="state.tagState == 0">
       <span *ngFor="let tag of state.secondTags">
-        <a href="#" (click)="onSecondTagSelect($event, tag.details)">{{tag.details}} ({{tag.count}})</a>
+        <a href="#" [class.hidden-tag]="tag.Hidden==1" (click)="onSecondTagSelect($event, tag.Details)">{{tag.Details}} ({{tag.Unreaded}})</a>
       </span>
   </span>
 </div>

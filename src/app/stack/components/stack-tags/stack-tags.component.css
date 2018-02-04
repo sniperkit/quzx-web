@@ -1,5 +1,9 @@
 a { font-size: 13px; }
 
+a.hidden-tag {
+  color: darkgray;
+}
+
 .current-tag-label{
   margin-left: 3px;
   margin-right: 3px;

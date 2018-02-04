@@ -7,9 +7,12 @@ export class StackQuestion {
   creationdate: number;
   classification: string;
   details: string;
+  score: number;
 }
 
 export class SecondTag {
-  details: string;
+  Details: string;
   count: number;
+  Unreaded: number;
+  Hidden: number;
 }

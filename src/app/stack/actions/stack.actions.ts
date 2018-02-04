@@ -62,21 +62,22 @@ export function stackReducer(state: StackState = initialState, action: Action): 
 
     case SET_QUESTION_AS_READ: {
 
-      let question = action.payload;
-      let firstTag = question.classification;
-      let secondTag = question.details;
+      const question = action.payload;
+      const firstTag = question.classification;
+      const secondTag = question.details;
 
-      let tags = _.chain(state.tags)
-                  .each((t: StackTag) => { if (t.Classification == firstTag) t.Unreaded--; })
-                  .filter(function(t: StackTag) { return t.Unreaded > 0 }).value();
-      let questions = _.filter(state.questions,
-                          function(q: StackQuestion) { return q.questionid != action.payload.questionid });
-      let secondTags = _.chain(state.secondTags)
-                        .each((t: SecondTag) => { if (t.details == secondTag) t.count--; })
-                        .filter(function(t: SecondTag) { return t.count > 0 }).value();
+      const tags = _.chain(state.tags)
+                    .each((t: StackTag) => { if (t.Classification === firstTag) { t.Unreaded--; } })
+                    .filter(function(t: StackTag) { return t.Unreaded > 0; }).value();
+      const questions = _.filter(state.questions,
+                            function(q: StackQuestion) { return q.questionid !==  action.payload.questionid });
+
+      console.log(state.secondTags)
+      const secondTags = _.chain(state.secondTags)
+                          .each((t: SecondTag) => { if (t.Details === secondTag) { t.Unreaded--; }})
+                          .filter(function(t: SecondTag) { return t.Unreaded > 0; }).value();
 
       return Object.assign({}, state, { tags: tags, secondTags: secondTags, questions: questions});
-
     }
 
     case SET_SELECTED_TAG: {
