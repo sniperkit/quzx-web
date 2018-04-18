@@ -1,4 +1,16 @@
 <div class="row col-md-12 st-panel">
+
+  <div class="btn-group" dropdown>
+    <button type="button" class="btn btn-default btn-xs dropdown-toggle" dropdownToggle>
+      Sort by
+      <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu role="menu" aria-labelledby="single-button" class="dropdown-menu">
+      <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByRating)">rating</a></li>
+      <li role="menuitem"><a href="#" (click)="generateEvent($event, eventType.SortByDate)">date</a></li>
+    </ul>
+  </div>
+
   <button type="button" class="btn btn-default btn-xs" (click)="generateEvent($event, eventType.MarkAllAsReaded)">
     Mark all as read
   </button>

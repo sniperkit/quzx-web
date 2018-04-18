@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StackService} from "../../services/stack.service";
 
 import { Store } from '@ngrx/store';
-import {StackState, GET_TAGS, GET_QUESTIONS, SET_QUESTION_AS_READ} from '../../actions/stack.actions';
+import {StackState, GET_TAGS, GET_QUESTIONS, SET_QUESTION_AS_READ, SortOrder} from '../../actions/stack.actions';
 import {StackQuestion} from "../../models/stack-question";
 
 import * as _ from "underscore";
@@ -28,12 +28,17 @@ export class StackQuestionTableComponent implements OnInit {
 
   onTagSelect() {
 
-    this.stackService.getQuestionsByTwoTags(this.state.selectedTag, this.state.secondTag).then(questions => {
+    let sort_order = '1';
+    if (this.state.sortOrder === SortOrder.ByRating) {
+      sort_order = '0';
+    }
+
+    this.stackService.getQuestionsByTwoTagsAndSortingOrder(this.state.selectedTag, this.state.secondTag, sort_order).then(questions => {
       this.store.dispatch({type: GET_QUESTIONS, payload: questions});
     });
   }
 
-  keyEvent(data: any):void {
+  keyEvent(data: any): void {
 
     switch (data.key) {
       case 'j':

@@ -2,7 +2,10 @@
 
   <stack-action-panel
     (onMarkAllAsReaded)="markAllAsRead()"
-    (onMarkAsReadedOlderOneDay)="markAllAsReadOlderOneDay()"></stack-action-panel>
+    (onMarkAsReadedOlderOneDay)="markAllAsReadOlderOneDay()"
+    (onSortByDate)="sortByDate()"
+    (onSortByRating)="sortByRating()">
+  </stack-action-panel>
 
   <stack-tags (handleTagSelect)="handleTagSelect($event)"></stack-tags>
 

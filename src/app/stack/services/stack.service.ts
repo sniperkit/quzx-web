@@ -37,8 +37,9 @@ export class StackService {
       .catch(this.handleError);
   }
 
-  getQuestionsByTwoTags(classification: string, second_tag: string): Promise<StackQuestion[]> {
-    return this.http.get(this.stackQuestionsUrl + classification + '/' + second_tag,
+  getQuestionsByTwoTagsAndSortingOrder(classification: string, second_tag: string, sorting_order: string): Promise<StackQuestion[]> {
+
+    return this.http.get(this.stackQuestionsUrl + classification + '/' + second_tag + '/' + sorting_order,
                          new RequestOptions({headers: contentHeaders}))
       .toPromise()
       .then(response => response.json() as StackQuestion[])

@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core'
 import {StackService} from "../services/stack.service";
 
 import { Store } from '@ngrx/store';
-import { StackState, GET_TAGS, GET_GENERAL_TAGS } from '../actions/stack.actions';
+import { StackState, SortOrder, GET_TAGS, GET_GENERAL_TAGS, CHANGE_SORT_ORDER } from '../actions/stack.actions';
 
 import {TagsService} from "../../tags/tags.service";
 import {StackQuestionTableComponent} from "../components/stack-question-table/stack-question-table.component";
@@ -25,7 +25,9 @@ export class StackComponent {
               private stackService: StackService,
               private tagsService: TagsService) {
 
-    store.select('stackReducer').subscribe((data: StackState) => this.state = data );
+    store.select('stackReducer').subscribe((data: StackState) => {
+      this.state = data;
+    } );
 
     this.stackService.getStackTags().then(tags => {
       this.store.dispatch({type: GET_TAGS, payload: tags});
@@ -57,6 +59,16 @@ export class StackComponent {
         this.store.dispatch({type: GET_TAGS, payload: tags});
       });
     });
+  }
+
+  sortByDate() {
+    this.store.dispatch({type: CHANGE_SORT_ORDER, payload: SortOrder.ByDate });
+    this.questionTable.onTagSelect();
+  }
+
+  sortByRating() {
+    this.store.dispatch({type: CHANGE_SORT_ORDER, payload: SortOrder.ByRating });
+    this.questionTable.onTagSelect();
   }
 
   getTags(): void {

@@ -11,6 +11,11 @@ export enum TagState {
   SecondSelected
 }
 
+export enum SortOrder {
+  ByRating,
+  ByDate
+}
+
 export interface StackState {
   tags: StackTag[];
   secondTags: SecondTag[];
@@ -19,6 +24,7 @@ export interface StackState {
   selectedTag: string;
   secondTag: string;
   tagState: TagState;
+  sortOrder: SortOrder;
 }
 
 const initialState: StackState = {
@@ -28,7 +34,8 @@ const initialState: StackState = {
   generalTags: [],
   selectedTag: '',
   secondTag: '',
-  tagState: TagState.NoneSelected
+  tagState: TagState.NoneSelected,
+  sortOrder: SortOrder.ByDate,
 };
 
 export const GET_TAGS = 'GET_TAGS';
@@ -39,6 +46,7 @@ export const SET_QUESTION_AS_READ = 'SET_QUESTION_AS_READ';
 export const SET_SELECTED_TAG = 'SET_SELECTED_TAG';
 export const SET_SECOND_TAG = 'SET_SECOND_TAG';
 export const RESET_SELECTED_TAGS = 'RESET_SELECTED_TAGS';
+export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER';
 
 export function stackReducer(state: StackState = initialState, action: Action): StackState {
 
@@ -80,17 +88,22 @@ export function stackReducer(state: StackState = initialState, action: Action): 
     }
 
     case SET_SELECTED_TAG: {
-      return Object.assign({}, state, { selectedTag: action.payload, tagState: TagState.FirstSelected })
+      return Object.assign({}, state, { selectedTag: action.payload, tagState: TagState.FirstSelected });
     }
 
     case SET_SECOND_TAG: {
 
       let tagState = action.payload === "" ? TagState.FirstSelected : TagState.SecondSelected;
-      return Object.assign({}, state, { secondTag: action.payload, tagState: tagState })
+      return Object.assign({}, state, { secondTag: action.payload, tagState: tagState });
     }
 
     case RESET_SELECTED_TAGS: {
-      return Object.assign({}, state, { selectedTag: '', secondTag: '', tagState: TagState.NoneSelected })
+      return Object.assign({}, state, { selectedTag: '', secondTag: '', tagState: TagState.NoneSelected });
+    }
+
+    case CHANGE_SORT_ORDER: {
+      console.log(action.payload);
+      return Object.assign({}, state, { sortOrder: action.payload });
     }
 
     default:
