@@ -4,6 +4,7 @@ import {SettingsStackTagsState} from './actions/stack-tags-settings.actions';
 import {Store} from '@ngrx/store';
 import {StackService} from '../../stack/services/stack.service';
 import {GET_STACK_TAGS, CHANGE_STACK_TAG_VISIBILITY} from './actions/stack-tags-settings.actions';
+import {StackTag} from '../../common/models/stack-tag';
 
 @Component({
   moduleId: module.id,
@@ -28,9 +29,9 @@ export class StackTagsSettingComponent {
 
   ngOnInit() {
 
-    this.stackService.getStackTags().then(tags => {
-      this.store.dispatch({type: GET_STACK_TAGS, payload: tags});
-    });
+    this.stackService.getStackTags().subscribe(
+      (tags: StackTag[]) => this.store.dispatch({type: GET_STACK_TAGS, payload: tags}),
+      (err: any) => console.log(err));
   }
 
   public onChangeVisibility(stackTagId: number) {

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
 
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/toPromise';
 
 import {StackQuestion, SecondTag} from '../models/stack-question';
 import {StackTag} from '../../common/models/stack-tag';
-import {contentHeaders} from '../../common/services/headers';
+import {contentHeaders, requestHeaders } from '../../common/services/headers';
 import {AppSettings} from '../../common/app.settings';
 
 @Injectable()
@@ -14,13 +17,10 @@ export class StackService {
   private stackTagsUrl = AppSettings.API_ENDPOINT  + 'api/stack/tags';
   private stackQuestionsUrl = AppSettings.API_ENDPOINT  + 'api/stack/questions/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private httpClient: HttpClient) { }
 
-  getStackTags(): Promise<StackTag[]> {
-    return this.http.get(this.stackTagsUrl, new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json() as StackTag[])
-      .catch(this.handleError);
+  getStackTags(): Observable<StackTag[]> {
+    return this.httpClient.get<StackTag[]>(AppSettings.API_ENDPOINT  + 'api/stack/tags', { headers: requestHeaders });
   }
 
   getSecondTags(classification: string): Promise<SecondTag[]> {

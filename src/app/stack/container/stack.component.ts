@@ -6,6 +6,7 @@ import { StackState, SortOrder, GET_TAGS, GET_GENERAL_TAGS, CHANGE_SORT_ORDER } 
 
 import {TagsService} from "../../tags/tags.service";
 import {StackQuestionTableComponent} from "../components/stack-question-table/stack-question-table.component";
+import {StackTag} from '../../common/models/stack-tag';
 
 @Component({
   moduleId: module.id,
@@ -29,9 +30,10 @@ export class StackComponent {
       this.state = data;
     } );
 
-    this.stackService.getStackTags().then(tags => {
-      this.store.dispatch({type: GET_TAGS, payload: tags});
-    });
+    this.stackService.getStackTags().subscribe(
+      (tags: StackTag[]) => this.store.dispatch({type: GET_TAGS, payload: tags}),
+      (err: any) => console.log(err)
+    );
 
     this.getTags();
   }
@@ -44,9 +46,10 @@ export class StackComponent {
 
     var tag = this.state.selectedTag;
     this.stackService.setQuestionsAsReadByClassification(tag).then(() => {
-      this.stackService.getStackTags().then(tags => {
-        this.store.dispatch({type: GET_TAGS, payload: tags});
-      });
+      this.stackService.getStackTags().subscribe(
+        (tags: StackTag[]) => this.store.dispatch({type: GET_TAGS, payload: tags}),
+        (err: any) => console.log(err)
+      );
     });
   }
 
@@ -55,9 +58,10 @@ export class StackComponent {
     let moment = Math.round((new Date().getTime()) / 1000) - 24 * 60 * 60;
     var tag = this.state.selectedTag;
     this.stackService.setQuestionsAsReadByClassificationFromTime(tag, moment).then(() => {
-      this.stackService.getStackTags().then(tags => {
-        this.store.dispatch({type: GET_TAGS, payload: tags});
-      });
+      this.stackService.getStackTags().subscribe(
+        (tags: StackTag[]) => this.store.dispatch({type: GET_TAGS, payload: tags}),
+        (err: any) => console.log(err)
+      );
     });
   }
 

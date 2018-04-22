@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {HttpModule, Http, RequestOptions} from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
@@ -29,7 +30,7 @@ import { LoginComponent } from "./login/login.component";
 import { TagSelectComponent } from './common/components/tag-select.component';
 import { RenameFeedModalWindowComponent } from './common/components/renamefeed-modalwindow.component';
 import { TagsComponent } from './tags/tag.component';
-import {AuthGuard} from "./common/services/auth.guard";
+import { AuthGuard } from "./common/services/auth.guard";
 import { NavigationTabsComponent } from './ui/navigation-tabs/navigation-tabs.component';
 import { RssActionPanelComponent } from './rss/components/rss-action-panel/rss-action-panel.component';
 import { RssFeedListComponent } from './rss/components/rss-feed-list/rss-feed-list.component';
@@ -77,6 +78,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true }),
