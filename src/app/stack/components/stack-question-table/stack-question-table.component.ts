@@ -33,9 +33,11 @@ export class StackQuestionTableComponent implements OnInit {
       sort_order = '0';
     }
 
-    this.stackService.getQuestionsByTwoTagsAndSortingOrder(this.state.selectedTag, this.state.secondTag, sort_order).then(questions => {
-      this.store.dispatch({type: GET_QUESTIONS, payload: questions});
-    });
+    this.stackService.getQuestionsByTwoTagsAndSortingOrder(this.state.selectedTag, this.state.secondTag, sort_order)
+      .subscribe(
+        (questions: StackQuestion[]) => this.store.dispatch({type: GET_QUESTIONS, payload: questions}),
+        (err: any) => console.log(err)
+      );
   }
 
   keyEvent(data: any): void {

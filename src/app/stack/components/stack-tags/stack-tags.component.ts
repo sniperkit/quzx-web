@@ -6,6 +6,7 @@ import {
   GET_SECOND_TAGS, RESET_SELECTED_TAGS
 } from '../../actions/stack.actions';
 import {StackService} from "../../services/stack.service";
+import {SecondTag} from '../../models/stack-question';
 
 @Component({
   selector: 'stack-tags',
@@ -29,11 +30,12 @@ export class StackTagsComponent implements OnInit {
     this.store.dispatch({type: SET_SELECTED_TAG, payload: classification});
     this.store.dispatch({type: SET_SECOND_TAG, payload: ''});
 
-    this.stackService.getSecondTags(classification).then(second_tags => {
-
-      this.store.dispatch({type: GET_SECOND_TAGS, payload: second_tags});
-      this.handleTagSelect.emit();
-    });
+    this.stackService.getSecondTags(classification).subscribe(
+      (second_tags: SecondTag[]) => {
+        this.store.dispatch({type: GET_SECOND_TAGS, payload: second_tags});
+        this.handleTagSelect.emit();
+      },
+      (err: any) => console.log(err));
 
     e.preventDefault();
   }

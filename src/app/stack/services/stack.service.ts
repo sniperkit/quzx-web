@@ -14,7 +14,6 @@ import {AppSettings} from '../../common/app.settings';
 @Injectable()
 export class StackService {
 
-  private stackTagsUrl = AppSettings.API_ENDPOINT  + 'api/stack/tags';
   private stackQuestionsUrl = AppSettings.API_ENDPOINT  + 'api/stack/questions/';
 
   constructor(private http: Http, private httpClient: HttpClient) { }
@@ -23,66 +22,43 @@ export class StackService {
     return this.httpClient.get<StackTag[]>(AppSettings.API_ENDPOINT  + 'api/stack/tags', { headers: requestHeaders });
   }
 
-  getSecondTags(classification: string): Promise<SecondTag[]> {
-    return this.http.get(AppSettings.API_ENDPOINT + 'api/stack/secondtags/' + classification, new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json() as SecondTag[])
-      .catch(this.handleError);
+  getSecondTags(classification: string): Observable<SecondTag[]> {
+
+    return this.httpClient.get<SecondTag[]>(AppSettings.API_ENDPOINT + 'api/stack/secondtags/' + classification,
+      { headers: requestHeaders });
   }
 
-  getQuestions(classification: string): Promise<StackQuestion[]> {
-    return this.http.get(this.stackQuestionsUrl + classification, new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json() as StackQuestion[])
-      .catch(this.handleError);
+  getQuestionsByTwoTagsAndSortingOrder(classification: string, second_tag: string, sorting_order: string): Observable<StackQuestion[]> {
+
+    return this.httpClient.get<StackQuestion[]>(this.stackQuestionsUrl + classification + '/' + second_tag + '/' + sorting_order,
+      { headers: requestHeaders });
   }
 
-  getQuestionsByTwoTagsAndSortingOrder(classification: string, second_tag: string, sorting_order: string): Promise<StackQuestion[]> {
+  setQuestionAsRead(questionId: number): Observable<any> {
 
-    return this.http.get(this.stackQuestionsUrl + classification + '/' + second_tag + '/' + sorting_order,
-                         new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json() as StackQuestion[])
-      .catch(this.handleError);
+    return this.httpClient.post(AppSettings.API_ENDPOINT  + 'api/stack/question-as-read',
+      '{"questionid":' + questionId + '}',
+      { headers: requestHeaders });
   }
 
-  setQuestionAsRead(questionId: number): Promise<any> {
+  setQuestionsAsReadByClassification(classification: string): Observable<any> {
 
-    return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/question-as-read', '{"questionid":' + questionId + '}', new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+    return this.httpClient.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/as-read',
+      '{"tag":"' + classification + '"}',
+      { headers: requestHeaders });
+    }
+
+  setQuestionsAsReadByClassificationFromTime(classification: string, time: number): Observable<any> {
+
+    return this.httpClient.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/from-time/as-read',
+      '{"tag":"' + classification + '", "fromTime":' + time + '}',
+      { headers: requestHeaders });
   }
 
-  setQuestionsAsReadByClassification(classification: string): Promise<any> {
+  changeTagVisibility(tagId: number): Observable<any> {
 
-    return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/as-read',
-      '{"tag":"' + classification + '"}', new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
-  }
-
-  setQuestionsAsReadByClassificationFromTime(classification: string, time: number): Promise<any> {
-
-    return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/from-time/as-read',
-      '{"tag":"' + classification + '", "fromTime":' + time + '}', new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
-  }
-
-  changeTagVisibility(tagId: number): Promise<any> {
-
-    return this.http.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/' + tagId + '/changeVisibility',
-      '{"id":' + tagId + '}', new RequestOptions({headers: contentHeaders}))
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    return this.httpClient.post(AppSettings.API_ENDPOINT  + 'api/stack/tags/' + tagId + '/changeVisibility',
+      '{"id":' + tagId + '}',
+      { headers: requestHeaders });
   }
 }

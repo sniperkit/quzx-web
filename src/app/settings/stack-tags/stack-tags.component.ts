@@ -35,9 +35,9 @@ export class StackTagsSettingComponent {
   }
 
   public onChangeVisibility(stackTagId: number) {
-    this.stackService.changeTagVisibility(stackTagId).then(result => {
-      this.store.dispatch({type: CHANGE_STACK_TAG_VISIBILITY, payload: stackTagId});
-    });
+    this.stackService.changeTagVisibility(stackTagId).subscribe(
+      (result: any) => this.store.dispatch({type: CHANGE_STACK_TAG_VISIBILITY, payload: stackTagId}),
+      (err: any) => console.log(err));
   }
 }
 
