@@ -10,11 +10,12 @@ import { FeedsComponent } from './settings.feed/feeds.component';
 import { FeedComponent } from './settings.feed/feed.component';
 import { StackTagsSettingComponent } from './settings/stack-tags/stack-tags.component';
 import { TagsComponent } from './tags/tag.component';
+import {StackTagsResolverService} from './stack/services/stacktag-resolver.service';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'torrents', component: RssComponent, data: { section: 5 }, canActivate: [AuthGuard] },
-  { path: 'stack', component: StackComponent, canActivate: [AuthGuard] },
+  { path: 'stack', component: StackComponent, resolve: { resolvedStackTags: StackTagsResolverService }, canActivate: [AuthGuard] },
   { path: 'rss', component: RssComponent, data: { section: 1 }, canActivate: [AuthGuard]  },
   { path: 'twitter', component: TwitterComponent, canActivate: [AuthGuard] },
   { path: 'reddit', component: RssComponent, data: { section: 3 }, canActivate: [AuthGuard] },

@@ -39,6 +39,8 @@ import { StackActionPanelComponent } from './stack/components/stack-action-panel
 import { StackTagsComponent } from './stack/components/stack-tags/stack-tags.component';
 import { StackQuestionTableComponent } from './stack/components/stack-question-table/stack-question-table.component';
 import { StackQuestionTableElementComponent } from './stack/components/stack-question-table-element/stack-question-table-element.component';
+import {StackTagsResolverService} from './stack/services/stacktag-resolver.service';
+import {StackService} from './stack/services/stack.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -84,7 +86,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     RouterModule.forRoot(appRoutes, { useHash: true }),
     StoreModule.provideStore({ feedsReducer, stackReducer, settingsFeedReducer, settingsStackTagsReducer })
   ],
-  providers: [AuthGuard, AuthHttp, {
+  providers: [StackTagsResolverService, StackService, AuthGuard, AuthHttp, {
     provide: AuthHttp,
     useFactory: authHttpServiceFactory,
     deps: [Http, RequestOptions]

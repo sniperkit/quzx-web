@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/Observable/ErrorObservable';
 
 import 'rxjs/add/operator/toPromise';
+import { catchError } from 'rxjs/operators';
 
 import { StackQuestion, SecondTag } from '../models/stack-question';
 import { StackTag } from '../../common/models/stack-tag';
 import { requestHeaders } from '../../common/services/headers';
 import { AppSettings } from '../../common/app.settings';
+import {ErrorResponse} from '../../common/models/ErrorResponse';
 
 @Injectable()
 export class StackService {
@@ -16,8 +19,20 @@ export class StackService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getStackTags(): Observable<StackTag[]> {
-    return this.httpClient.get<StackTag[]>(AppSettings.API_ENDPOINT  + 'api/stack/tags', { headers: requestHeaders });
+  private handleHttpError(error: HttpErrorResponse): Observable<ErrorResponse> {
+    const err = new ErrorResponse();
+    err.errorNumber = 100;
+    err.message = error.statusText;
+    err.friendlyMessage = 'An error occurred retrieving data.';
+    return ErrorObservable.create(err);
+  }
+
+  getStackTags(): Observable<StackTag[] | ErrorResponse> {
+    return this.httpClient.get<StackTag[]>(AppSettings.API_ENDPOINT  + 'api/stack/tags',
+      { headers: requestHeaders })
+      .pipe(
+        catchError(err => this.handleHttpError(err))
+      );
   }
 
   getSecondTags(classification: string): Observable<SecondTag[]> {

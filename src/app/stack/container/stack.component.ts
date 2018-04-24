@@ -7,6 +7,8 @@ import { StackState, SortOrder, GET_TAGS, GET_GENERAL_TAGS, CHANGE_SORT_ORDER } 
 import {TagsService} from "../../tags/tags.service";
 import {StackQuestionTableComponent} from "../components/stack-question-table/stack-question-table.component";
 import {StackTag} from '../../common/models/stack-tag';
+import {ErrorResponse} from '../../common/models/ErrorResponse';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -24,16 +26,19 @@ export class StackComponent {
 
   constructor(private store: Store<StackState>,
               private stackService: StackService,
-              private tagsService: TagsService) {
+              private tagsService: TagsService,
+              private route: ActivatedRoute) {
 
     store.select('stackReducer').subscribe((data: StackState) => {
       this.state = data;
     } );
 
-    this.stackService.getStackTags().subscribe(
-      (tags: StackTag[]) => this.store.dispatch({type: GET_TAGS, payload: tags}),
-      (err: any) => console.log(err)
-    );
+    const resolvedStackTags: StackTag[] | ErrorResponse = this.route.snapshot.data['resolvedStackTags'];
+    if (resolvedStackTags instanceof ErrorResponse) {
+      console.log(`Stack component error: ${resolvedStackTags.friendlyMessage}`);
+    } else {
+      this.store.dispatch({type: GET_TAGS, payload: resolvedStackTags});
+    };
 
     this.getTags();
   }
