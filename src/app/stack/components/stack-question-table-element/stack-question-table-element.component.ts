@@ -28,8 +28,12 @@ export class StackQuestionTableElementComponent implements OnInit {
 
   markAsRead(e: MouseEvent, question: StackQuestion) {
 
-    this.stackService.setQuestionAsRead(question.questionid);
-    this.store.dispatch({type: SET_QUESTION_AS_READ, payload: question});
+    this.stackService.setQuestionAsRead(question.questionid)
+      .subscribe(
+        () => this.store.dispatch({type: SET_QUESTION_AS_READ, payload: question}),
+        (err: any) => console.log(err)
+      );
+
     e.preventDefault();
   }
 }

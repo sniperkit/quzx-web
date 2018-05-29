@@ -38,7 +38,7 @@ export class StackComponent {
       console.log(`Stack component error: ${resolvedStackTags.friendlyMessage}`);
     } else {
       this.store.dispatch({type: GET_TAGS, payload: resolvedStackTags});
-    };
+    }
 
     this.getTags();
   }

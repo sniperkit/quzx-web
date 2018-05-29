@@ -46,8 +46,12 @@ export class StackQuestionTableComponent implements OnInit {
       case 'j':
 
         if (this.state.questions.length > 0) {
-          this.stackService.setQuestionAsRead(this.state.questions[0].questionid);
-          this.store.dispatch({type: SET_QUESTION_AS_READ, payload: this.state.questions[0]});
+
+          this.stackService.setQuestionAsRead(this.state.questions[0].questionid)
+            .subscribe(
+            () => this.store.dispatch({type: SET_QUESTION_AS_READ, payload: this.state.questions[0]}),
+            (err: any) => console.log(err)
+            );
         }
         break;
     }
